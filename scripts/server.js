@@ -1,33 +1,58 @@
-const compression = require('compression')
+const path = require('path')
+const resolve = dir => path.join(__dirname, dir)
+const fs = require('fs')
 const express = require('express')
-// const proxy = require('http-proxy-middleware')
+const compression = require('compression')
+const spdy = require('spdy')
 
-const PORT = 5000
+
+/**
+ * App config
+ */
+const PUBLIC = resolve('../dist/')
+const PORT = 5008
 const app = express()
 app.use(compression())
 
+// const options = {
+//   dotfiles: 'ignore',
+//   etag: false,
+//   index: false,
+//   maxAge: '10d',
+//   redirect: false,
+//   // setHeaders: (res, path, stat) => {
+//   //   res.set('x-timestamp', Date.now())
+//   // }
+// }
+
+/**
+ * https with spdy
+ * https://publishing-project.rivendellweb.net/node-and-http-2/
+ */
 const options = {
-  dotfiles: 'ignore',
-  etag: false,
-  index: false,
-  maxAge: '10d',
-  redirect: false,
-  setHeaders: (res, path, stat) => {
-    res.set('x-timestamp', Date.now())
-  }
+  key: fs.readFileSync(resolve('../cert/server.key')),
+  cert: fs.readFileSync(resolve('../cert/server.crt')),
+
+  spdy: {
+    protocols: ['h2', 'spdy/3.1', 'http/1.1'],
+    plain: false,
+    'x-forwarded-for': false,
+
+    connection: {
+      windowSize: 1024 * 1024, // Server's window size
+      autoSpdy31: false,
+    },
+  },
 }
 
-const path = require('path')
-const resolve = dir => path.join(__dirname, dir)
-const dist = resolve('../dist/')
-
-app.get('/', (req, res) => res.sendFile(dist + 'index.html'))
-app.use('/', express.static(dist, options))
-// app.use('/', proxy({target: '/', changeOrigin: true}))
-
-app.listen(PORT, () => {
+/** Start Server */
+spdy.createServer(options, app).listen(PORT, () => {
   console.log(`Server start ->
-    at 🥁  ${Date().toLocaleString()} 
-    on 🔑  http://localhost:${PORT}
+    at 🥁  ${Date().toLocaleString()}
+    on 🔑  https://localhost:${PORT}
   `)
 })
+
+/**  Serve Static */
+app.get('/', (req, res) => res.sendFile(`${PUBLIC}/index.html`))
+app.get('*', express.static(`${PUBLIC}/`, options))

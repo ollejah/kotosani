@@ -6,7 +6,7 @@
   "author": "ollejah <ollejah@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "yarn build && node server.js",
+    "start": "yarn build && node scripts/server.js",
     "dev": "nodemon --watch webpack.config.js --exec 'NODE_ENV=development webpack-dev-server --inline --hot'",
     "build": "NODE_ENV=production webpack --progress --hide-modules",
     "deploy": "yarn build && node scripts/upload.js",

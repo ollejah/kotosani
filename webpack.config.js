@@ -23,8 +23,8 @@ const resolve = dir => path.join(__dirname, dir)
 /** Project config */
 const config = {
   sourcePath: resolve('src'),
-  distPath: resolve('dist'),
-  assetsPath: resolve('dist/assets'),
+  distPath: resolve('docs'),
+  assetsPath: resolve('docs/assets'),
   baseHref: '/',
   publicPath: PRODUCTION ? '/assets/' : '/',
   watchContent: [
