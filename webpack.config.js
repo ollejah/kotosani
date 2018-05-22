@@ -12,8 +12,10 @@ const OfflinePlugin = require('offline-plugin')
 // const HtmlCriticalPlugin = require('html-critical-webpack-plugin')
 
 /** Environment */
-const env = process.env.NODE_ENV
-const PRODUCTION = env === 'production'
+// const env = process.env.NODE_ENV
+// const PRODUCTION = env === 'production'
+const argv = require('yargs').argv
+const PRODUCTION = argv.env === 'production'
 
 /** Path */
 const pkg = require('./package.json')
@@ -23,8 +25,8 @@ const resolve = dir => path.join(__dirname, dir)
 /** Project config */
 const config = {
   sourcePath: resolve('src'),
-  distPath: resolve('docs'),
-  assetsPath: resolve('docs/assets'),
+  distPath: resolve('dist'),
+  assetsPath: resolve('dist/assets'),
   baseHref: '/',
   publicPath: PRODUCTION ? 'assets/' : '/',
   watchContent: [
@@ -156,7 +158,8 @@ const webpackStats = {
 
 /** Config */
 const webpackConfig = {
-  mode: process.env.NODE_ENV,
+  // mode: process.env.NODE_ENV,
+  mode: argv.env,
   context: config.sourcePath,
   entry: {
     app: ['styles/app.scss', 'app.js'],
@@ -390,7 +393,7 @@ const webpackConfig = {
     new webpack.DefinePlugin({
       VERSION: JSON.stringify(`v${pkg.version}`),
       PRODUCTION: JSON.stringify(PRODUCTION),
-      GITHUB: JSON.stringify(require('yargs').argv.dist),
+      GITHUB: JSON.stringify(argv.dist),
     }),
 
     // HMR shows correct file names in console on update
@@ -443,7 +446,7 @@ if (PRODUCTION) {
     }),
 
     new CopyWebpackPlugin([{ from: resolve('static'), to: config.distPath }], {
-      ignore: ['.DS_Store'], // '.htaccess', 
+      ignore: ['.DS_Store'], // '.htaccess',
     }),
 
     new MiniCssExtractPlugin({
@@ -468,5 +471,5 @@ if (PRODUCTION) {
   )
 }
 
-module.exports = webpackConfig
-// module.exports = env => webpackConfig
+// module.exports = webpackConfig
+module.exports = env => webpackConfig

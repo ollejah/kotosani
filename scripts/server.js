@@ -9,8 +9,8 @@ const spdy = require('spdy')
 /**
  * App config
  */
-const PUBLIC = resolve('../docs/')
 const PORT = 5008
+const PUBLIC = resolve('../dist/')
 const app = express()
 app.use(compression())
 
