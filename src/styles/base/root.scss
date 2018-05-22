@@ -1,0 +1,136 @@
+/**
+ * Base Classes
+ */
+
+// * {
+//   margin: 0;
+//   padding: 0;
+//   box-sizing: border-box;
+// }
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html,
+body {
+  min-height: 100vh;
+}
+
+// html {
+//   font-size: 16px;
+//   /** 360px */
+//   @include sm {
+//     font-size: calc(16px + 6 * ((100vw - $sm) / 680));
+//   }
+//   /** 1200px */
+//   @include xl {
+//     font-size: 22px;
+//   }
+// }
+
+html {
+  box-sizing: border-box;
+
+  /** Fonts */
+  // font: 100%/1.5 $system;
+  font-family: $system;
+  // font-size: calc(16px + 1 * ((100vw - 360px) / (992 - 360)));
+
+  // calc([min size] + ([max size] - [min size]) * ((100vw - [min viewport width]) / ([max viewport width] - [min viewport width])));
+  // fluid-type($min_width, $max_width, $min_font, $max_font)
+  @include fluid-type($sm, $xl, 16px, 24px);
+
+  line-height: 1.45;
+
+  /** mobile tap color */
+  -webkit-tap-highlight-color: transparent;
+
+  /** has to be scroll, not auto */
+  -webkit-overflow-scrolling: touch;
+
+  /** lets it scroll lazy */
+  backface-visibility: hidden;
+
+  /** https://codepen.io/askd/full/WdXOYW */
+  /** https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView */
+  scroll-behavior: smooth;
+
+  /** https://evilmartians.com/chronicles/scroll-to-the-future-modern-javascript-css-scrolling-implementations */
+  min-width: 320px;
+  // min-height: 100%;
+  overflow-x: hidden; // force a vertical scrollbar to prevent a jumpy page
+  overflow-y: scroll;
+}
+
+body {
+  margin: 0 auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  line-height: 1.25;
+}
+// h1 {
+//   font-size: 2rem;
+// }
+// h2 {
+//   font-size: 2rem;
+// }
+// h3 {
+//   font-size: 1.375rem;
+// }
+// h4 {
+//   font-size: 1.25rem;
+// }
+// h5 {
+//   font-size: 1.125rem;
+// }
+// h6 {
+//   font-size: 1rem;
+// }
+
+big {
+  font-size: inherit;
+}
+
+p {
+  hyphens: auto;
+}
+
+small {
+  font-size: 0.75rem;
+}
+
+code,
+pre {
+  font-weight: normal;
+  font-family: Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: white;
+  background: $dark;
+}
+
+code {
+  padding: 1px 2px 2px;
+}
+
+pre {
+  white-space: pre-wrap;
+  word-wrap: normal;
+  display: block;
+  overflow-x: auto;
+  padding: 0.5rem 1rem;
+}
+
+hr {
+  border-top-color: $grey;
+}

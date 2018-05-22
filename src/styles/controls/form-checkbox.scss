@@ -1,0 +1,59 @@
+/**
+ * Checkbox 
+ * simpleForm.rb spec...
+ */
+.checkbox {
+  /** RoR specific... */
+  >label {
+    padding-left: 2rem;
+    input {
+      margin-right: $controlElementHeight/2;
+      width: $controlElementHeight;
+      height: $controlElementHeight;
+      &:focus {
+        outline: none;
+      }
+    }
+    // or
+    // margin-left: 1.125rem;
+    // text-indent: -2rem;
+    // input {
+    //   top: 0.25rem;
+    //   margin-right: 0.5rem;
+    // }
+  }
+  /** standart */
+  input {
+    position: relative;
+    padding: 0;
+    &::before {
+      @extend %controlElement;
+      border: 1px solid $grey;
+      background-color: white;
+    }
+    &:checked::before {
+      border-color: $medium;
+      background-color: $medium;
+    }
+    &::after {
+      position: absolute;
+      z-index: 1;
+      content: '';
+      top: 50%;
+      left: 50%;
+      width: 0.375rem;
+      height: 0.75rem;
+      transform-origin: .5em .375em;
+      transform: translate(-50%, -50%) rotate(45deg);
+      border: solid white;
+      border-width: 0 2px 2px 0;
+    }
+    &:focus {
+      outline: none;
+      &::before {
+        @extend %controlFocus;
+        border-color: transparent;
+      }
+    }
+  }
+}

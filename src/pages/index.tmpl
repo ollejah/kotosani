@@ -1,0 +1,80 @@
+<!-- htmlmin:ignore -->${ PRODUCTION ? BANNER : '' }<!-- htmlmin:ignore -->
+<!doctype html>
+<html lang="ru" class="is-loading">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <meta name="description" content="Первое в Сочи антикафе с котиками">
+
+    <!-- Предварительный запрос DNS -->
+    <!-- <meta http-equiv="x-dns-prefetch-control" content="on"> -->
+    <!-- <link rel="dns-prefetch" href="//ajax.googleapis.com"> -->
+    <!-- <link rel="dns-prefetch" href="//polyfill.io"> -->
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=LbWpzwYWWb">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=LbWpzwYWWb">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=LbWpzwYWWb">
+    <link rel="manifest" href="/site.webmanifest?v=LbWpzwYWWb">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg?v=LbWpzwYWWb" color="#551ffa">
+    <link rel="shortcut icon" href="/favicon.ico?v=LbWpzwYWWb">
+    <meta name="msapplication-TileColor" content="#551ffa">
+    <meta name="theme-color" content="#551ffa">
+  </head>
+
+  <body>
+    <div hidden class="offline-ready" id="offline-ready">
+        <p>This website is now ready for offline usage because <code><a href="https://github.com/NekR/offline-plugin">offline-plugin</a></code> made it so. Try it!</p>
+    </div>
+    
+    <!-- begin header -->
+    <%= require('./inc/header.html') %>
+    <!-- end header -->
+
+    <main>
+    <%= require(`./${htmlWebpackPlugin.options.partial}.html`) %>
+    </main>
+
+    <!-- begin footer -->
+    <%= require('./inc/footer.html') %>
+    <!-- end footer -->
+
+    <!-- Modals -->
+    <div hidden class="overlay js-overlay">
+      <a href="#close" class="overlay-close js-close">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+          <path stroke="currentColor" stroke-width="4" stroke-miterlimit="10" d="M20 20l60 60m0-60L20 80" />
+        </svg>
+      </a>
+
+      <svg class="spinner js-spinner" width="32" height="32" viewBox="0 0 64 64">
+        <defs>
+          <linearGradient id="sGD" gradientUnits="userSpaceOnUse" x1="55" y1="46" x2="2" y2="46">
+            <stop offset="10%" style="stop-color: currentColor; stop-opacity: 0;"></stop>
+            <stop offset="100%" style="stop-color: currentColor;"></stop>
+          </linearGradient>
+        </defs>
+        <g fill="none" style="stroke-width: 4; stroke-linecap: round;">
+          <path stroke="url(#sGD)" d="M4,32 c0,15,12,28,28,28c8,0,16-4,21-9"></path>
+          <path d="M60,32 C60,16,47.464,4,32,4S4,16,4,32" style="stroke: currentColor;"></path>
+        </g>
+      </svg>
+
+      <iframe id="default_form"></iframe>
+    </div>
+
+    <script src="//unpkg.com/focus-visible@4.1.4/dist/focus-visible.min.js" async></script>
+    <script src="//polyfill.io/v2/polyfill.min.js?features=IntersectionObserver" async></script>
+  </body>
+
+</html>

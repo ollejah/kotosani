@@ -1,0 +1,58 @@
+/**
+ * Meta
+ */
+
+.l-footer {
+  padding: $pad;
+  text-align: center;
+  // color: hsla(0, 0%, 100%, 0.8);
+}
+
+.social-icons {
+  text-align: center;
+  // margin: $out auto 0;
+  padding: 0;
+  a {
+    margin: 0 1em;
+    &:hover {
+      color: $secondary;
+    }
+  }
+  svg,
+  img {
+    width: 2em;
+    height: 2em;
+  }
+  .instagram {
+    color: $secondary;
+  }
+}
+
+// .footer-docs {
+//   font-size: 0.875em;
+//   a {
+//     margin: 0 0.25em;
+//   }
+// }
+
+.copyright {
+  margin: $out auto;
+}
+
+/**
+ * Goto top of page
+ */
+.goto-top {
+  display: none;
+  // position: fixed;
+  // z-index: 1;
+  // right: 0;
+  // bottom: 0;
+  // width: 3rem;
+  // height: 3rem;
+  // padding: 0.5rem;
+  // color: #FFF;
+  // text-indent: -999em;
+  // background: $grey;
+  // cursor: pointer;
+}

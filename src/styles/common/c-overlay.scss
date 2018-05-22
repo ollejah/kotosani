@@ -1,0 +1,90 @@
+/**
+ * OVERLAY
+ */
+
+.c-overlay {
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: auto;
+  min-height: 100vh;
+  background: $overlayBackground;
+  margin: 0;
+
+  /** reset inner elements */
+  > * {
+    margin: 0;
+  }
+
+  /** Animations */
+  visibility: hidden;
+  opacity: 0;
+  transform: translateZ(0) scale(0.95);
+  transition: visibility 0s linear 0.3s, opacity 0.3s 0s, transform 0.3s 0s;
+  pointer-events: none;
+  // run
+  &.is-active {
+    visibility: visible;
+    opacity: 1;
+    transform: scale(1);
+    transition: visibility 0s linear 0s, opacity 0.3s 0s, transform 0.3s 0s;
+    pointer-events: all;
+  }
+
+  /** Close button */
+  &-close {
+    position: fixed;
+    z-index: 1100;
+    top: .875rem;
+    right: 1rem;
+    width: 3rem;
+    height: 3rem;
+    color: $accent;
+    background: white;
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  /** Content wrapper */
+  /* &.is-active .modal-content {
+    display: inherit;
+    pointer-events: all;
+  }
+  .modal-content {
+    position: absolute;
+    z-index: 999;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: none;
+    pointer-events: none;
+  } */
+
+  /** iFrame */
+  iframe {
+    position: relative;
+    width: 100%;
+    height: 100vh; // or calc(100% - 3rem);
+    overflow: auto;
+    border: 0 none;
+    -webkit-overflow-scrolling: touch;
+    display: none;
+  }
+  iframe.is-active {
+    display: block;
+    animation: OpenFrame 0.5s ease-in;
+  }
+  @keyframes OpenFrame {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+}

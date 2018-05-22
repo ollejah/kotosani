@@ -1,0 +1,73 @@
+/**
+ * Radio
+ */
+.radio {
+  // border: 1px solid blue;
+  display: inline-block;
+  flex: 1;
+  width: 100%;
+  margin-bottom: 0;
+
+  input {
+    top: 0.25rem;
+    margin-right: $controlElementHeight/2;
+    padding: 0;
+    /** RoR specific... */
+    width: $controlElementHeight;
+    height: $controlElementHeight;
+    border-radius: 50%;
+
+    &::before {
+      @extend %controlElement;
+      background-color: white;
+      // border: $controlBorder;
+      border: 1px solid $grey;
+      border-radius: 50%;
+    }
+    &::after {
+      @extend %controlElement;
+      width: $controlElementHeight/3.5;
+      height: $controlElementHeight/3.5;
+      border-radius: 50%;
+    }
+    &:checked::before {
+      border-color: $medium;
+      background-color: $medium;
+    }
+    &:checked::after {
+      background-color: white;
+    }
+    &:focus {
+      outline: none;
+      &::before {
+        @extend %controlFocus;
+        border-color: transparent;
+      }
+    }
+  }
+  // every next after first...
+  // ~ .radio {
+  //   margin-bottom: 0;
+  // }
+}
+
+/**
+ * Radio Set
+ */
+// .radio-btn {
+//   // @extend .c-btn;
+//   border: 1px solid;
+//   display: inline-flex;
+//   padding: $controlPad/2;
+//   text-align: center;
+//   cursor: pointer;
+//   input {
+//     display: none;
+//     &:checked + span {
+//       color: #fff;
+//     }
+//     &:checked + span:before {
+//       background: $medium;
+//     }
+//   }
+// }

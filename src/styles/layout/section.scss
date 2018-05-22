@@ -1,0 +1,151 @@
+/**
+ * Frontpage sections
+ */
+
+.l-section {
+  @include sm {
+    + .l-section {
+      margin-top: $out * 2;
+    }
+  }
+
+  > * {
+    @extend %mqPad;
+    margin: $out auto 0;
+
+    /** Animate els then into viewport */
+    opacity: 0;
+    transform: translateY(-10vh);
+    transition: opacity 1s ease, transform 0.5s ease;
+    &.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /** Section Header */
+  > .title {
+    text-align: center;
+
+    /** Sticky heading */
+    position: -webkit-sticky;
+    position: sticky;
+    z-index: 10;
+    top: calc(3rem - 2px); // disable top gap
+    height: calc(2rem + 1px); // disable top gap
+    background: $secondary;
+    color: $primary;
+    @include sm {
+      height: auto;
+      background: $primary;
+      color: $secondary;
+    }
+
+    h2 {
+      margin: 0 auto;
+      font-size: 1.5em;
+      line-height: 2rem;
+    }
+    @include sm {
+      h2 {
+        margin: 1rem auto;
+        font-size: 4em;
+        line-height: initial;
+      }
+    }
+  }
+
+  /** Full-width container, aka .l-inner */
+  .separator {
+    width: 100%;
+    max-width: $innerWidth;
+    text-align: center;
+  }
+
+  /** Typography */
+  h3 {
+    font-size: 1.75em;
+    color: $secondary;
+    @include sm {
+      font-size: 3em;
+    }
+  }
+
+  big {
+    @extend %big;
+    text-align: center;
+    @include sm {
+      text-align: initial;
+    }
+    // @at-root .-rtl {
+    //   text-align: center;
+    //   @include sm {
+    //     text-align: right;
+    //   }
+    // }
+  }
+
+  /** Columns */
+  @include sm {
+    .-rtl {
+      flex-flow: row-reverse;
+    }
+  }
+  /** ...has image */
+  .c-col:first-child {
+    // background: hsla(0, 100%, 0%, 0.15);
+    background: shade($primary, 15%);
+  }
+
+  /** Images into c-col */
+  figure {
+    position: relative;
+    overflow: hidden;
+    padding-top: 0;
+    padding-bottom: calc(120% - 1em); // 5:6 ratio x1.2
+    height: 0;
+    // outline: 0.5em dotted cornflowerblue;
+    // outline: 0.5em dotted shade($primary, 15%);
+    // outline-offset: 0.5em;
+
+    /** border image http://css.yoksel.ru/border-image/ */
+    // border: 1px solid transparent;
+    // border-image: url("~@/images/m-catpaw.svg");
+    // border-image-slice: 80;
+    // border-image-repeat: repeat;
+    // border-image-width: 3rem;
+    // border-image-outset: 60px 10px 50px 120px;
+
+    transform: rotate(-3deg);
+    transition: transform 0.5s ease;
+    img {
+      transform: rotate(-5deg);
+      outline: 0.5em solid $primary;
+      outline-offset: -0.25em; // hide artefacted edges
+      // image-rendering: crisp-edges;
+      // image-rendering: pixelated;
+    }
+    &:hover,
+    &:active {
+      transform: rotate(-2deg);
+    }
+  }
+  .-rtl figure {
+    transform: rotate(3deg);
+    img {
+      transform: rotate(5deg);
+    }
+    &:hover,
+    &:active {
+      transform: rotate(2deg);
+    }
+  }
+
+  /** c-col has svg */
+  .-svg svg {
+    transform: rotate(-5deg);
+    outline: none;
+    // outline: 0.5em solid $primary;
+    // outline-offset: -0.25em; // hide artefacted edges
+  }
+}

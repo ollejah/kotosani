@@ -1,0 +1,64 @@
+/**
+ * Select
+ */
+
+/** Select fixes for .form-group */
+fieldset > .select {
+  // outline: 1px solid blue;
+  position: relative;
+  display: block;
+  // width: 100%;
+
+  select {
+    position: relative;
+    border: $controlBorder;
+    border-radius: $controlRadius;
+    box-shadow: $controlShadowBottom;
+    background: $controlBackground;
+    flex: 1;
+    width: 100%;
+    height: $controlHeight;
+    padding-right: 2.5em;
+    @supports (-moz-appearance: none) {
+      padding-left: 0.75rem;
+    }
+  }
+
+  &::after {
+    position: absolute;
+    z-index: 10;
+    content: '';
+    right: 0;
+    // bottom: 0;
+    top: 2.125rem; // fix for error container
+    width: $controlHeight/1.5;
+    height: $controlHeight;
+    background: transparent
+      svg(
+        '<svg xmlns="http://www.w3.org/2000/svg" fill="#{$dark}" viewBox="0 0 395 980"><path d="M395 630L197.5 980 0 630z" /><path d="M395 350L197.5 0 0 350z" /></svg>'
+      )
+      no-repeat 50% 50%/ 0.45rem;
+    // border-left: 1px solid rgba($dark, .2);
+    pointer-events: none;
+  }
+
+  [disabled] {
+    cursor: default;
+  }
+
+  // &:hover {
+  //   // select {
+  //   //   background: white!important;
+  //   // }
+  //   &::after {
+  //     border-color: $accent;
+  //   }
+  // }
+  // &.-wide {
+  //   display: flex;
+  //   select {
+  //     flex: 1;
+  //     width: 100%;
+  //   }
+  // }
+}

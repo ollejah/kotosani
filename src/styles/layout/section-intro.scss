@@ -1,0 +1,57 @@
+/**
+ * Intro
+ */
+
+.--intro {
+  text-align: center;
+  
+  /** reset first section animate */
+  > * {
+    opacity: inherit;
+    transform: none;
+  }
+
+  h1 {
+    width: calc(100vw - #{$pad});
+    @include sm {
+      width: calc(100vw - #{$pad * 2});
+    }
+    font-size: 15vw;
+    letter-spacing: -0.05em;
+    margin: 1rem auto;
+
+    // @include gradientText(left, $secondary, $accent);
+    // -webkit-text-stroke-color: white;
+    // -webkit-text-stroke-width: 1px;
+    // color: transparent;
+
+    color: $accent;
+    b {
+      color: $secondary;
+    }
+  }
+
+  big {
+    text-align: center;
+    font-style: italic;
+    position: relative;
+    display: inline-block;
+    margin: 0;
+    padding: 0 1.5em;
+    @include md {
+      &::before,
+      &::after {
+        position: absolute;
+        content: '—';
+        top: 50%;
+        line-height: 0;
+      }
+      &::before {
+        left: 0;
+      }
+      &::after {
+        right: 0;
+      }
+    }
+  }
+}

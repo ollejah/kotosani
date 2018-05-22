@@ -1,0 +1,48 @@
+//a:link, a:visited, a:active {
+a {
+  color: $accent;
+  text-decoration-skip: ink;
+  // text-decoration-color: cornflowerblue;
+  text-decoration-color: rgba($accent, 0.5);
+  transition: color linear 0.15s;
+  &:hover {
+    color: $accent;
+  }
+}
+
+// %onFocus {
+//   // position: relative;
+//   // z-index: 1;
+//   // box-shadow: 0 0 0 2px $accent !important;
+// }
+
+/** Provide basic, default focus styles. */
+// :focus {
+//   position: relative;
+//   overflow: visible;
+//   background-color: inherit;
+//   border: 0 none; // reset
+//   // outline: 0 none; // reset
+//   // @extend %onFocus;
+//   outline: 2px solid white !important;
+//   outline-offset: -2px;
+// }
+
+/**
+ * Remove default focus styles for mouse users ONLY if
+ * :focus-visible is supported on this platform.
+ */
+:focus-visible {
+  background: $accent !important;
+}
+
+/** Polyfill */
+:focus {
+  border: 0 none; // reset
+  outline: 0 none; // reset
+  // @extend %onFocus;
+}
+.focus-visible {
+  outline: 2px dashed white !important;
+  outline-offset: -2px;
+}

@@ -1,0 +1,18 @@
+/**
+ * Input & textarea
+ */
+input:not([type='checkbox']):not([type='radio']):not([type='submit']),
+textarea {
+  flex: 1;
+  width: 100%;
+  border: $controlBorder;
+  background: $controlBackground;
+  box-shadow: $controlShadowTop;
+  outline: 0;
+  transition: border linear 0.2s;
+}
+textarea {
+  resize: vertical;
+  line-height: 1.375;
+  display: flex;
+}

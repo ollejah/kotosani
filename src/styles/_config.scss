@@ -1,0 +1,66 @@
+// @import 'base/reset';
+@import 'mixins/mixins';
+
+/**
+ * Colours
+ */
+// $primary: #1E55FA;
+// $primary: hsl(255, 96%, 55%);
+$primary: hsl(31, 55%, 83%);
+// $secondary: bisque;
+// $secondary: hsl(48, 100%, 75%);
+$secondary: hsl(292, 16%, 28%);
+// $accent: tomato;
+// $accent: hsl(350, 88%, 70%);
+$accent: hsl(16, 30%, 50%);
+
+/** Additional */
+$success: hsl(160, 65%, 35%);
+$danger: #f3665f;
+$info: #50abf3;
+$warn: #f3df49;
+$wait: $warn;
+
+/** Greys */
+// $dark: #223;
+$dark: hsl(247, 20%, 18%);
+$strong: tint($dark, 20%);
+$medium: tint($dark, 40%);
+$grey: tint($dark, 80%);
+$light: #F5F6F7;
+
+/** Map Helper */
+// $baseColors: (
+//   '-primary': $primary,
+//   '-secondary': $secondary,
+//   '-accent': $accent,
+//   '-wait': $wait,
+//   '-success': $success,
+//   '-dark': $dark,
+//   '-strong': $strong,
+//   '-medium': $medium,
+//   '-grey': $grey,
+//   '-light': $light
+// );
+
+/**
+ * Fonts
+ */
+$system: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial,
+  sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+// 'Roboto', sans-serif;
+$sans: $system;
+$serif: 'Georgia', serif;
+
+/**
+ * Base elements
+ */
+$radius: 0.125rem;
+$shadow: 0 1px 1px 0 rgba(black, 0.1);
+$cardShadow: 0 2px 0.5rem 0 hsla(0, 0%, 5%, 0.1);
+$overlayBackground: rgba($primary, 0.75);
+$border: 1px solid $grey;
+$innerWidth: 60rem;
+$out: 3rem;
+$pad: 2rem;
+$gut: 1rem;
