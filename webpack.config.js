@@ -26,7 +26,7 @@ const config = {
   distPath: resolve('docs'),
   assetsPath: resolve('docs/assets'),
   baseHref: '/',
-  publicPath: PRODUCTION ? './assets/' : '/',
+  publicPath: PRODUCTION ? 'assets/' : '/',
   watchContent: [
     resolve('src/images'),
     resolve('src/pages'),
@@ -390,6 +390,7 @@ const webpackConfig = {
     new webpack.DefinePlugin({
       VERSION: JSON.stringify(`v${pkg.version}`),
       PRODUCTION: JSON.stringify(PRODUCTION),
+      GITHUB: JSON.stringify(require('yargs').argv.dist),
     }),
 
     // HMR shows correct file names in console on update
@@ -468,3 +469,4 @@ if (PRODUCTION) {
 }
 
 module.exports = webpackConfig
+// module.exports = env => webpackConfig
