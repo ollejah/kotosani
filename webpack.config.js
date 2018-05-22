@@ -26,7 +26,7 @@ const config = {
   distPath: resolve('docs'),
   assetsPath: resolve('docs/assets'),
   baseHref: '/',
-  publicPath: PRODUCTION ? '/assets/' : '/',
+  publicPath: PRODUCTION ? './assets/' : '/',
   watchContent: [
     resolve('src/images'),
     resolve('src/pages'),
