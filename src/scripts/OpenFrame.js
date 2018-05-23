@@ -49,7 +49,9 @@ export default class OpenFrame {
   }
 
   open() {
-    this.docOffset = getOffsetTop() // Store document scroll position
+    // Store document scroll position
+    this.docOffset = getOffsetTop()
+    
     this.root.classList.add('is-disabled')
     this.modal.removeAttribute('hidden')
     this.modal.classList.add('is-active')
