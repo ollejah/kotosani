@@ -22,17 +22,14 @@ const pkg = require('./package.json')
 const path = require('path')
 const resolve = dir => path.join(__dirname, dir)
 
-/** Stage path baseDir for gh-pages */
-// const BASEDIR = argv.basedir ? '/kotosani' : ''
-const stageConfig = () => {
-  return !!argv.basedir
-    ? {
-        distPath: resolve('docs'),
-        assetsPath: resolve('docs/assets'),
-        publicPath: PRODUCTION ? '/kotosani/assets/' : '/',
-      }
-    : {}
-}
+/** Change puplic path for gh-pages stage */
+const stageConfig = !!argv.stage
+  ? {
+      distPath: resolve('docs'),
+      assetsPath: resolve('docs/assets/'),
+      publicPath: '/kotosani/assets/',
+    }
+  : {}
 
 /** Project config */
 const config = {
@@ -40,7 +37,7 @@ const config = {
   distPath: resolve('dist'),
   assetsPath: resolve('dist/assets'),
   publicPath: PRODUCTION ? '/assets/' : '/',
-  ...stageConfig(), // stage path
+  ...stageConfig, // stage path
   watchContent: [
     resolve('src/images'),
     resolve('src/pages'),
@@ -405,6 +402,8 @@ const webpackConfig = {
     new webpack.DefinePlugin({
       VERSION: JSON.stringify(`v${pkg.version}`),
       PRODUCTION: JSON.stringify(PRODUCTION),
+      STAGE: JSON.stringify(!!argv.stage),
+      PUBLIC: JSON.stringify(!!argv.stage ? '/kotosani' : ''),
     }),
 
     // HMR shows correct file names in console on update

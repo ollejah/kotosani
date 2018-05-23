@@ -4,13 +4,15 @@ const fs = require('fs')
 const express = require('express')
 const compression = require('compression')
 const spdy = require('spdy')
-
+const argv = require('yargs').argv
+const stage = !!argv.stage
 
 /**
  * App config
  */
 const PORT = 5008
-const PUBLIC = resolve('../dist/')
+const PUBLIC = stage ? '/kotosani/' : '/'
+const DIR = stage ? resolve('../docs/') : resolve('../dist/')
 const app = express()
 app.use(compression())
 
@@ -54,5 +56,6 @@ spdy.createServer(options, app).listen(PORT, () => {
 })
 
 /**  Serve Static */
-app.get('/', (req, res) => res.sendFile(`${PUBLIC}/index.html`))
-app.get('*', express.static(`${PUBLIC}/`, options))
+app.get(PUBLIC, (req, res) => res.sendFile(`${DIR}/index.html`))
+// app.get('*', express.static(`${DIR}/`, options))
+app.use(PUBLIC, express.static(`${DIR}/`, options))

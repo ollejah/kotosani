@@ -9,7 +9,7 @@
     "start": "yarn build && node scripts/server.js",
     "dev": "nodemon --watch webpack.config.js --exec 'webpack-dev-server --env development --inline --hot'",
     "build": "webpack --env production --progress --hide-modules",
-    "stage": "webpack --env production --progress --hide-modules --basedir kotosani && cp -r dist docs",
+    "stage": "rm -rf docs && yarn build --stage && node scripts/server.js --stage",
     "deploy": "yarn build && node scripts/upload.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
