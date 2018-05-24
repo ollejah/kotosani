@@ -11,12 +11,12 @@ import animationEnd from '@/helpers/animation'
 const freezeVp = e => e.preventDefault()
 const viewportScrolling = {
   stop: () => {
-    // return window.addEventListener('touchmove', freezeVp, false)
-    document.addEventListener('touchmove', e => e.preventDefault(), { passive: false })
+    return window.addEventListener('touchmove', freezeVp, false)
+    // document.addEventListener('touchmove', e => e.preventDefault(), { passive: false })
   },
   start: () => {
-    // return window.removeEventListener('touchmove', freezeVp, false)
-    document.addEventListener('touchmove', { passive: true })
+    return window.removeEventListener('touchmove', freezeVp, false)
+    // document.addEventListener('touchmove', { passive: true })
   },
 }
 
