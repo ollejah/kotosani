@@ -4,40 +4,42 @@
  */
 
 .c-zoomable {
-  // background: $overlayBackground;
+  position: fixed;
+  top: 0!important;
+  
+  // backdrop-filter: blur(5px) contrast(.8);
   &.is-active {
     cursor: zoom-out;
   }
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: $pad/2;
+  @include sm {
+    padding: $pad/2;
+  }
 
   // figure {
-  //   // height: 100vh;
-  //   // display: flex;
-  //   // flex-direction: column;
-  //   // align-items: center;
-  //   // justify-content: center;
+  //   height: 100vh;
+  //   display: flex;
+  //   flex-direction: column;
+  //   align-items: center;
+  //   justify-content: center;
   // }
 
+  // pointer-events: none;
   img {
-    // width: initial;
-    // max-width: 100%;
-    height: calc(100vh - #{$pad});
-    width: auto;
-
-    //   opacity: 0;
-    //   transform: scale(1.1);
-    //   // filter: blur(4px);
-    //   animation: c-zoomable-image 0.5s ease-out 0.25s forwards;
-    //   @keyframes c-zoomable-image {
-    //     to {
-    //       opacity: 1;
-    //       transform: scale(1);
-    //       // filter: unset;
-    //     }
-    //   }
+    // pointer-events: all;
+  //   opacity: 0;
+  //   transform: scale(1.1);
+  //   // filter: blur(4px);
+  //   animation: c-zoomable-image 0.5s ease-out 0.25s forwards;
+  //   @keyframes c-zoomable-image {
+  //     to {
+  //       opacity: 1;
+  //       transform: scale(1);
+  //       // filter: unset;
+  //     }
+  //   }
   }
 
   figcaption {

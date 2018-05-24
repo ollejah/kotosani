@@ -61,8 +61,8 @@ html {
   /** https://evilmartians.com/chronicles/scroll-to-the-future-modern-javascript-css-scrolling-implementations */
   min-width: 320px;
   // min-height: 100%;
-  overflow-x: hidden; // force a vertical scrollbar to prevent a jumpy page
-  overflow-y: scroll;
+  // overflow-x: hidden; // force a vertical scrollbar to prevent a jumpy page
+  // overflow-y: scroll;
 }
 
 body {

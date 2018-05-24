@@ -134,7 +134,7 @@
   &-inner,
   &-inner::before,
   &-inner::after {
-    background-color: white;
+    background-color: $accent;
   }
   /* 
   &:not(.is-active) .hamburger-inner,

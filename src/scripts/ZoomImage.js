@@ -4,12 +4,31 @@ import '@/helpers/dom'
 import transitionEnd from '@/helpers/transition'
 import animationEnd from '@/helpers/animation'
 
-// Getter, Setter document position Y
-const getOffsetTop = () =>
-  window.pageYOffset || document.documentElement.scrollTop
+/**
+ * Preventing body scroll for modals in iOS
+ * https://benfrain.com/preventing-body-scroll-for-modals-in-ios/
+ */
+const freezeVp = e => e.preventDefault()
+const viewportScrolling = {
+  stop: () => {
+    // return window.addEventListener('touchmove', freezeVp, false)
+    document.addEventListener('touchmove', e => e.preventDefault(), { passive: false })
+  },
+  start: () => {
+    // return window.removeEventListener('touchmove', freezeVp, false)
+    document.addEventListener('touchmove', { passive: true })
+  },
+}
 
-const setDocOffset = posy =>
-  (document.documentElement.scrollTop = document.body.scrollTop = posy)
+/** Getter, Setter document position Y */
+const docOffset = {
+  get: () => {
+    return window.pageYOffset || document.documentElement.scrollTop
+  },
+  set: posy => {
+    return (document.documentElement.scrollTop = document.body.scrollTop = posy)
+  },
+}
 
 /**
  * Class ZoomImage
@@ -57,11 +76,12 @@ export default class ZoomImage {
 
   open(target) {
     // Store document scroll position
-    this.getDocOffset = getOffsetTop()
+    // this.docOffset = docOffset.get()
+    viewportScrolling.stop()
 
     this.zoom = document.createElement('div')
     this.zoom.innerHTML = this.template(target)
-    this.zoom.style.top = `${this.getDocOffset}px`
+    // this.zoom.style.top = `${this.docOffset}px`
     document.body.appendChild(this.zoom)
     this.zoom.classList.add('c-overlay', 'c-zoomable')
     setTimeout(() => this.zoom.classList.add('is-active'), 10)
@@ -77,6 +97,7 @@ export default class ZoomImage {
   close(e) {
     e.preventDefault()
     this.show = false
+    viewportScrolling.start()
     this.zoom.classList.remove('is-active')
     this.zoom.on(transitionEnd, e => {
       if (e.propertyName == this.endAnimate) {

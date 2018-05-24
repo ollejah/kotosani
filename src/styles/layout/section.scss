@@ -93,7 +93,6 @@
   }
   /** ...has image */
   .c-col:first-child {
-    // background: hsla(0, 100%, 0%, 0.15);
     background: shade($primary, 15%);
   }
 
@@ -119,6 +118,7 @@
     transform: rotate(-3deg);
     transition: transform 0.5s ease;
     img {
+      cursor: zoom-in;
       transform: rotate(-5deg);
       outline: 0.5em solid $primary;
       outline-offset: -0.25em; // hide artefacted edges

@@ -4,7 +4,28 @@ import '@/helpers/dom'
 // import transitionEnd from '@/helpers/transition'
 // import animationEnd from '@/helpers/animation'
 
-// Getter, Setter document position Y
+/** 
+ * Preventing body scroll for modals in iOS
+ * https://benfrain.com/preventing-body-scroll-for-modals-in-ios/
+ */
+// const freezeVp = e => e.preventDefault()
+// const toggleViewportScrolling = bool => {
+//   bool === true
+//     ? body.addEventListener('touchmove', freezeVp, false)
+//     : body.removeEventListener('touchmove', freezeVp, false)
+// }
+
+// * Getter, Setter document position Y 
+// const docOffset = {
+//   get: () => {
+//     return window.pageYOffset || document.documentElement.scrollTop
+//   },
+//   set: posy => {
+//     return document.documentElement.scrollTop = document.body.scrollTop = posy
+//   }
+// }
+// console.log(docOffset)
+
 const getOffsetTop = () =>
   window.pageYOffset || document.documentElement.scrollTop
 
@@ -51,7 +72,8 @@ export default class OpenFrame {
   open() {
     // Store document scroll position
     this.docOffset = getOffsetTop()
-    
+    toggleViewportScrolling(false)
+
     this.root.classList.add('is-disabled')
     this.modal.removeAttribute('hidden')
     this.modal.classList.add('is-active')
@@ -84,6 +106,7 @@ export default class OpenFrame {
     this.show = false
     this.modal.classList.remove('is-active')
     setOffsetTop(this.docOffset)
+    toggleViewportScrolling(true)
     setTimeout(() => {
       this.iframe.classList.remove('is-active')
       this.root.classList.remove('is-disabled')
