@@ -6,11 +6,18 @@
 const fs = require('vinyl-fs')
 const ftp = require('vinyl-ftp')
 
-/** https://github.com/motdotla/dotenv */
-const dotenv = require('dotenv').config()
-const config = dotenv.parsed
+/** pass args */
+const argv = require('yargs').argv
+const stage = !!argv.stage
+const ENV_PATH = stage ? '.env.stage' : '.env'
 
-/** @type {Object} ftp connect config */
+/** https://github.com/motdotla/dotenv */
+const config = require('dotenv').config({ path: ENV_PATH }).parsed
+
+/** build dir for upload */
+const DIR = stage ? 'docs' : 'dist'
+
+/** Connect config */
 const conn = new ftp({
   host: config.HOST,
   user: config.USER,
@@ -20,5 +27,5 @@ const conn = new ftp({
 
 conn.rmdir(config.ROOT_DIR + '/**', () => {
   console.log('clean remote, start upload...')
-  fs.src(['./dist/**'], { buffer: false }).pipe(conn.dest(config.ROOT_DIR))
+  fs.src([`./${DIR}/**`], { buffer: false }).pipe(conn.dest(config.ROOT_DIR))
 })
