@@ -8,27 +8,27 @@ import animationEnd from '@/helpers/animation'
  * Preventing body scroll for modals in iOS
  * https://benfrain.com/preventing-body-scroll-for-modals-in-ios/
  */
-const freezeVp = e => e.preventDefault()
+const prevent = e => e.preventDefault()
 const viewportScrolling = {
   stop: () => {
-    return window.addEventListener('touchmove', freezeVp, false)
-    // document.addEventListener('touchmove', e => e.preventDefault(), { passive: false })
+    document.documentElement.classList.add('is-disabled')
+    document.documentElement.addEventListener('touchmove', prevent)
   },
   start: () => {
-    return window.removeEventListener('touchmove', freezeVp, false)
-    // document.addEventListener('touchmove', { passive: true })
+    document.documentElement.classList.remove('is-disabled')
+    document.documentElement.removeEventListener('touchmove', prevent)
   },
 }
 
 /** Getter, Setter document position Y */
-const docOffset = {
-  get: () => {
-    return window.pageYOffset || document.documentElement.scrollTop
-  },
-  set: posy => {
-    return (document.documentElement.scrollTop = document.body.scrollTop = posy)
-  },
-}
+// const docOffset = {
+//   get: () => {
+//     return window.pageYOffset || document.documentElement.scrollTop
+//   },
+//   set: posy => {
+//     return (document.documentElement.scrollTop = document.body.scrollTop = posy)
+//   },
+// }
 
 /**
  * Class ZoomImage
@@ -36,7 +36,6 @@ const docOffset = {
 export default class ZoomImage {
   constructor({ trigger, endAnimate }) {
     this.root = qs('html')
-    // this.modal = qs('.js-overlay')
     this.trigger = trigger
     this.closer = qs('.js-close')
     this.show = false
@@ -79,18 +78,16 @@ export default class ZoomImage {
     // this.docOffset = docOffset.get()
     viewportScrolling.stop()
 
-    this.zoom = document.createElement('div')
-    this.zoom.innerHTML = this.template(target)
-    // this.zoom.style.top = `${this.docOffset}px`
-    document.body.appendChild(this.zoom)
-    this.zoom.classList.add('c-overlay', 'c-zoomable')
-    setTimeout(() => this.zoom.classList.add('is-active'), 10)
-    this.root.classList.add('is-disabled')
+    this.modal = document.createElement('div')
+    this.modal.innerHTML = this.template(target)
+    document.body.appendChild(this.modal)
+    this.modal.classList.add('c-overlay-image')
+    setTimeout(() => this.modal.classList.add('is-active'), 10)
 
     // Закрывает при клике на оверлей
-    this.zoom.on('click', e => this.close(e), false)
+    this.modal.on('click', e => this.close(e), false)
 
-    // Закрывает при клике на кнопку х
+    // Закрывает при клике на кнопку ✕
     this.closer.on('click', e => this.close(e), false)
   }
 
@@ -98,12 +95,11 @@ export default class ZoomImage {
     e.preventDefault()
     this.show = false
     viewportScrolling.start()
-    this.zoom.classList.remove('is-active')
-    this.zoom.on(transitionEnd, e => {
+    this.modal.classList.remove('is-active')
+    this.modal.on(transitionEnd, e => {
       if (e.propertyName == this.endAnimate) {
-        document.body.removeChild(this.zoom)
+        document.body.removeChild(this.modal)
       }
     })
-    this.root.classList.remove('is-disabled')
   }
 }
