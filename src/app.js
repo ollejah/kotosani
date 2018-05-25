@@ -62,15 +62,18 @@ const sections = Array.from(qsa('.l-section > *')).slice(1)
 const showSections = () => {
   const io = new IntersectionObserver(
     changes =>
-      changes.forEach(change => {
-        const target = change.target
-        console.log(target, change.isIntersecting, change.intersectionRatio)
-        if (change.isIntersecting) {
-          target.classList.add('in-view')
-          io.unobserve(target)
-        }
-      }),
-    { rootMargin: '50% 0%', threshold: [0.25, 0.5, 1.0] }
+    changes.forEach(change => {
+      const target = change.target
+      console.log(target, change.isIntersecting, change.intersectionRatio)
+      if (change.isIntersecting) {
+        target.classList.add('in-view')
+        io.unobserve(target)
+      }
+    }), {
+      rootMargin: '50px 0px',
+      threshold: 0.01
+    }
+
   )
   // const sections = Array.from(qsa('.l-section > *'))
   sections.forEach(item => io.observe(item))
@@ -110,11 +113,11 @@ import ZoomImage from '@/scripts/ZoomImage'
 const imagesLoaded = qsa('[data-src]')
 imagesLoaded.forEach(
   img =>
-    new ZoomImage({
-      trigger: img,
-      endAnimate: 'visibility',
-      // closeAfter: 500,
-    })
+  new ZoomImage({
+    trigger: img,
+    endAnimate: 'visibility',
+    // closeAfter: 500,
+  })
 )
 
 /**
