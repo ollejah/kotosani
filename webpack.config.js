@@ -217,6 +217,19 @@ const webpackConfig = {
    */
   module: {
     rules: [
+      /** site.manifest pwa */
+      {
+        test: /site\.webmanifest$/,
+        use: [
+          { loader: 'json-loader' },
+          {
+            loader: path.resolve('webpack/manifest-loader'),
+            options: {
+              name: '../test-manifest.[hash:7].[ext]',
+            },
+          },
+        ],
+      },
       /** html */
       // https://github.com/webpack-contrib/html-loader
       {

@@ -2,15 +2,15 @@
   "name": "\u041a\u043e\u0442\u043e\u0421\u0430\u043d\u0438",
   "short_name": "\u041a\u043e\u0442\u043e\u0421\u0430\u043d\u0438",
   "scope": "/kotosani/",
-  "start_url": "./?utm_source=homescreen",
+  "start_url": "/kotosani/?utm_source=homescreen",
   "icons": [
     {
-      "src": "./android-chrome-192x192.png?v=QEMpkz595P",
+      "src": "/kotosani/android-chrome-192x192.png?v=QEMpkz595P",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "./android-chrome-512x512.png?v=QEMpkz595P",
+      "src": "/kotosani/android-chrome-512x512.png?v=QEMpkz595P",
       "sizes": "512x512",
       "type": "image/png"
     }

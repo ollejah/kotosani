@@ -2,6 +2,8 @@
 module.hot && module.hot.accept()
 
 import '@/helpers/dom'
+import webmanifest from '../static/site.webmanifest'
+console.log(webmanifest)
 
 /**
  * Sticky polyfill
