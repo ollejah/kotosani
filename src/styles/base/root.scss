@@ -36,8 +36,8 @@ html {
 
   /** Fonts */
   font-family: $system;
-  // $min_width, $max_width, $min_font, $max_font
-  @include fluid-type($sm, $xl, .875em, 1.25em);
+  // $min_width, $max_width, $min_font, $max_font : 544, 1200, 14px, 18px
+  @include fluid-type($sm, $xl, .875em, 1.125em);
   line-height: 1.45;
 
   /** mobile tap color */
