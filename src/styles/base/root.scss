@@ -35,14 +35,9 @@ html {
   box-sizing: border-box;
 
   /** Fonts */
-  // font: 100%/1.5 $system;
   font-family: $system;
-  // font-size: calc(16px + (24 - 16) * ((100vw - 544px) / (1200 - 544)));
-
-  // calc([min size] + ([max size] - [min size]) * ((100vw - [min viewport width]) / ([max viewport width] - [min viewport width])));
-  // fluid-type($min_width, $max_width, $min_font, $max_font)
+  // $min_width, $max_width, $min_font, $max_font
   @include fluid-type($sm, $xl, .875em, 1.25em);
-
   line-height: 1.45;
 
   /** mobile tap color */
