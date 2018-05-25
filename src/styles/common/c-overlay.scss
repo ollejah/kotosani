@@ -3,13 +3,14 @@
  */
 
 .c-overlay {
-  position: absolute;
+  border: 1px solid tomato;
+  position: fixed;
   z-index: 100;
   top: 0;
-  right: 0;
   left: 0;
-  height: auto;
-  min-height: 100vh;
+  width: 100vw;
+  /** set 100% for auto height for iOS bottom bar */
+  height: 100vh; // fixed viewport height, ignore iOS bottom bar
   background: $overlayBackground;
   margin: 0;
 
@@ -35,6 +36,7 @@
 
   /** Close button */
   &-close {
+    // position: sticky;
     position: fixed;
     z-index: 1100;
     top: .875rem;
@@ -46,45 +48,6 @@
     svg {
       width: 100%;
       height: 100%;
-    }
-  }
-
-  /** Content wrapper */
-  /* &.is-active .modal-content {
-    display: inherit;
-    pointer-events: all;
-  }
-  .modal-content {
-    position: absolute;
-    z-index: 999;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    display: none;
-    pointer-events: none;
-  } */
-
-  /** iFrame */
-  iframe {
-    position: relative;
-    width: 100%;
-    height: 100vh; // or calc(100% - 3rem);
-    overflow: auto;
-    border: 0 none;
-    -webkit-overflow-scrolling: touch;
-    display: none;
-  }
-  iframe.is-active {
-    display: block;
-    animation: OpenFrame 0.5s ease-in;
-  }
-  @keyframes OpenFrame {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
     }
   }
 }

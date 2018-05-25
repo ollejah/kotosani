@@ -1,0 +1,48 @@
+/**
+ * Zoomable iframe 
+ * @used c-overlay, c-close
+ */
+
+.c-overlay-image {
+  @extend .c-overlay;
+
+  /** iFrame */
+  iframe {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: auto;
+    border: 0 none;
+    -webkit-overflow-scrolling: touch;
+    display: none;
+  }
+  iframe.is-active {
+    display: block;
+    animation: OpenFrame 0.5s ease-in;
+  }
+
+  @keyframes OpenFrame {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  /** Content wrapper */
+  /* &.is-active .modal-content {
+    display: inherit;
+    pointer-events: all;
+  }
+  .modal-content {
+    position: absolute;
+    z-index: 999;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: none;
+    pointer-events: none;
+  } */
+}

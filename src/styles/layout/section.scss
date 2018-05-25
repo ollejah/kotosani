@@ -142,10 +142,11 @@
   }
 
   /** c-col has svg */
-  .-svg svg {
-    transform: rotate(-5deg);
-    outline: none;
-    // outline: 0.5em solid $primary;
-    // outline-offset: -0.25em; // hide artefacted edges
+  .-svg {
+    background: none !important;
+    svg {
+      transform: rotate(-5deg);
+      outline: none;
+    }
   }
 }

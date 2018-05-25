@@ -3,9 +3,8 @@
  * @used c-overlay, c-close
  */
 
-.c-zoomable {
-  position: fixed;
-  top: 0!important;
+.c-overlay-image {
+  @extend .c-overlay;
   
   // backdrop-filter: blur(5px) contrast(.8);
   &.is-active {
@@ -48,7 +47,6 @@
   }
 
   .c-close {
-    // position: sticky;
     display: none;
   }
 }
