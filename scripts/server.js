@@ -51,7 +51,7 @@ const options = {
 spdy.createServer(options, app).listen(PORT, () => {
   console.log(`Server start ->
     at 🥁  ${Date().toLocaleString()}
-    on 🔑  https://localhost:${PORT}
+    on 🔑  https://localhost:${PORT}${PUBLIC}
   `)
 })
 
