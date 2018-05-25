@@ -64,7 +64,7 @@ const showSections = () => {
     changes =>
     changes.forEach(change => {
       const target = change.target
-      console.log(target, change.isIntersecting, change.intersectionRatio)
+      // console.log(target, change.isIntersecting, change.intersectionRatio)
       if (change.isIntersecting) {
         target.classList.add('in-view')
         io.unobserve(target)
