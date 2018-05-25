@@ -28,10 +28,8 @@ body {
   color: $dark;
   // text-shadow: 0 1px 0 hsla(0, 100%, 0%, 0.25);
   background: $primary;
-  // #{shade($primary, 10%)}
-  background-image: svg('<svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 40 40"><path d="M20 20.5V18H0v-2h20v-2H0v-2h20v-2H0V8h20V6H0V4h20V2H0V0h22v20h2V0h2v20h2V0h2v20h2V0h2v20h2V0h2v20h2v2H20v-1.5zM0 20h2v20H0V20zm4 0h2v20H4V20zm4 0h2v20H8V20zm4 0h2v20h-2V20zm4 0h2v20h-2V20zm4 4h20v2H20v-2zm0 4h20v2H20v-2zm0 4h20v2H20v-2zm0 4h20v2H20v-2z" fill="#{hsl(30, 80%, 86%)}" fill-rule="evenodd"/></svg>');
-  // background-image: svg('<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 80 80"><path d="M50 50c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10s-10-4.477-10-10 4.477-10 10-10zM10 10c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10S0 25.523 0 20s4.477-10 10-10zm10 8a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm40 40a8 8 0 1 0 0-16 8 8 0 0 0 0 16z" fill="#{hsl(30, 80%, 86%)}" fill-rule="evenodd"/></svg>');
-  // background: $primary url('~@/images/pattern.svg') 50% 50% / 80%;
+  // background-image: svg('<svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 40 40"><path d="M20 20.5V18H0v-2h20v-2H0v-2h20v-2H0V8h20V6H0V4h20V2H0V0h22v20h2V0h2v20h2V0h2v20h2V0h2v20h2V0h2v20h2v2H20v-1.5zM0 20h2v20H0V20zm4 0h2v20H4V20zm4 0h2v20H8V20zm4 0h2v20h-2V20zm4 0h2v20h-2V20zm4 4h20v2H20v-2zm0 4h20v2H20v-2zm0 4h20v2H20v-2zm0 4h20v2H20v-2z" fill="#{hsl(30, 80%, 86%)}" fill-rule="evenodd"/></svg>');
+  background-image: svg('<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 80 80"><path d="M50 50c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10s-10-4.477-10-10 4.477-10 10-10zM10 10c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10S0 25.523 0 20s4.477-10 10-10zm10 8a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm40 40a8 8 0 1 0 0-16 8 8 0 0 0 0 16z" fill="#{hsl(30, 80%, 86%)}" fill-rule="evenodd"/></svg>');
 
   @include md {
     padding: $pad 0;
