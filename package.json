@@ -19,6 +19,7 @@
     "merge:develop": "git rebase master develop && git push origin",
     "stage": "rm -rf docs && yarn build --stage && node scripts/server.js --stage",
     "deploy": "yarn build && node scripts/upload.js",
+    "deploy:stage": "rm -rf docs && yarn build --stage && push-dir --dir=docs --branch=gh-pages --allow-unclean --cleanup",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -48,6 +49,7 @@
     "optimize-css-assets-webpack-plugin": "^4.0.1",
     "postcss-loader": "^2.1.3",
     "preload-webpack-plugin": "^3.0.0-alpha.3",
+    "push-dir": "^0.4.1",
     "resource-hints-webpack-plugin": "^0.0.2",
     "sass-loader": "^6.0.7",
     "sharp": "^0.20.2",
