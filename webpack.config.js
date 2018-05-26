@@ -1,4 +1,5 @@
 // webpack v4
+const fs = require('fs')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -12,10 +13,10 @@ const OfflinePlugin = require('offline-plugin')
 // const HtmlCriticalPlugin = require('html-critical-webpack-plugin')
 
 /** Environment */
-// const env = process.env.NODE_ENV
-// const PRODUCTION = env === 'production'
 const argv = require('yargs').argv
 const PRODUCTION = argv.env === 'production'
+const stage = !!argv.stage
+const PUBLIC = stage ? '/kotosani/' : '/'
 
 /** Path */
 const pkg = require('./package.json')
@@ -23,13 +24,37 @@ const path = require('path')
 const resolve = dir => path.join(__dirname, dir)
 
 /** Change puplic path for gh-pages stage */
-const stageConfig = !!argv.stage
+const stageConfig = stage
   ? {
       distPath: resolve('docs'),
       assetsPath: resolve('docs/assets/'),
       publicPath: '/kotosani/assets/',
     }
   : {}
+
+/** site.webmanifest pwa */
+const siteManifest = ({ source, dist }) => {
+  const pkg = JSON.parse(fs.readFileSync('./package.json'))
+  source = JSON.stringify(JSON.parse(fs.readFileSync(source)))
+  source = source.replace(/{PUBLIC}/g, PUBLIC)
+
+  const merged = Object.assign({}, JSON.parse(source), {
+    name: pkg.name,
+    description: pkg.description,
+    version: pkg.version,
+    author: pkg.author,
+    homepage_url: pkg.homepage,
+  })
+
+  const indent = PRODUCTION ? null : 2
+  const result = JSON.stringify(merged, null, indent) + '\n'
+  fs.writeFileSync(dist, result)
+  return result
+}
+siteManifest({
+  source: './src/site.webmanifest',
+  dist: './static/site.webmanifest',
+})
 
 /** Project config */
 const config = {
@@ -218,18 +243,23 @@ const webpackConfig = {
   module: {
     rules: [
       /** site.manifest pwa */
-      {
-        test: /site\.webmanifest$/,
-        use: [
-          { loader: 'json-loader' },
-          {
-            loader: path.resolve('webpack/manifest-loader'),
-            options: {
-              name: '../test-manifest.[hash:7].[ext]',
-            },
-          },
-        ],
-      },
+      // {
+      //   test: /site\.webmanifest$/,
+      //   use: [
+      //     {
+      //       loader: 'file-loader',
+      //       options: {
+      //         // name: '[name].[ext]',
+      //         name: path.join('../', '[name].[ext]'),
+      //       },
+      //     },
+      //     // 'json-loader',
+      //     {
+      //       loader: resolve('webpack/manifest-loader'),
+      //     },
+      //   ],
+      // },
+
       /** html */
       // https://github.com/webpack-contrib/html-loader
       {
@@ -269,7 +299,7 @@ const webpackConfig = {
               // 'cache-loader',
               {
                 // loader: 'responsive-loader',
-                loader: path.resolve('webpack/responsive-loader'),
+                loader: resolve('webpack/responsive-loader'),
                 options: {
                   sizes: [320, 480, 640, 800, 960],
                   name: 'images/[name]-w_[width].[hash:7].[ext]',
@@ -415,8 +445,8 @@ const webpackConfig = {
     new webpack.DefinePlugin({
       VERSION: JSON.stringify(`v${pkg.version}`),
       PRODUCTION: JSON.stringify(PRODUCTION),
-      STAGE: JSON.stringify(!!argv.stage),
-      PUBLIC: JSON.stringify(!!argv.stage ? '/kotosani' : ''),
+      STAGE: JSON.stringify(stage),
+      PUBLIC: JSON.stringify(stage ? '/kotosani' : ''),
     }),
 
     // HMR shows correct file names in console on update
@@ -485,12 +515,12 @@ if (PRODUCTION) {
       banner: `@release: [name] v${
         pkg.version
       } [chunkhash]\n@latest: ${new Date().toString()}\n@author: ollejah skillbase`,
-    }),
-
-    new ManifestPlugin({
-      fileName: 'assets.json',
-      writeToFileEmit: false,
     })
+
+    // new ManifestPlugin({
+    //   fileName: 'assets.json',
+    //   writeToFileEmit: false,
+    // })
   )
 }
 

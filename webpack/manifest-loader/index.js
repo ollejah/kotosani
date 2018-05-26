@@ -1,11 +1,16 @@
 // This Webpack loader adds relevant entries from package.json to your manifest.json.
 
 const fs = require('fs')
+const argv = require('yargs').argv
+const stage = !!argv.stage
+const PUBLIC = stage ? '/kotosani/' : '/'
 
 module.exports = function(source) {
   this.addDependency('./package.json')
   this.cacheable()
   const pkg = JSON.parse(fs.readFileSync('./package.json'))
+
+  source = source.replace(/{PUBLIC}/g, PUBLIC)
 
   const merged = Object.assign({}, JSON.parse(source), {
     name: pkg.name,
