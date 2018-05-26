@@ -23,15 +23,6 @@ const pkg = require('./package.json')
 const path = require('path')
 const resolve = dir => path.join(__dirname, dir)
 
-/** Change puplic path for gh-pages stage */
-const stageConfig = stage
-  ? {
-      distPath: resolve('docs'),
-      assetsPath: resolve('docs/assets/'),
-      publicPath: '/kotosani/assets/',
-    }
-  : {}
-
 /** site.webmanifest pwa */
 const siteManifest = ({ source, dist }) => {
   const pkg = JSON.parse(fs.readFileSync('./package.json'))
@@ -53,8 +44,18 @@ const siteManifest = ({ source, dist }) => {
 }
 siteManifest({
   source: './src/site.webmanifest',
-  dist: './static/site.webmanifest',
+  // dist: './static/site.webmanifest',
+  dist: stage ? './docs/site.webmanifest' : './dist/site.webmanifest',
 })
+
+/** Change puplic path for gh-pages stage */
+const stageConfig = stage
+  ? {
+      distPath: resolve('docs'),
+      assetsPath: resolve('docs/assets/'),
+      publicPath: '/kotosani/assets/',
+    }
+  : {}
 
 /** Project config */
 const config = {
