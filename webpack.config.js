@@ -10,6 +10,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const ResourceHintWebpackPlugin = require('./webpack/resource-hints-webpack-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
 const OfflinePlugin = require('offline-plugin')
+const WriteWebmanifest = require('./webpack/write-webmanifest')
 // const HtmlCriticalPlugin = require('html-critical-webpack-plugin')
 
 /** Environment */
@@ -42,11 +43,11 @@ const siteManifest = ({ source, dist }) => {
   fs.writeFileSync(dist, result)
   return result
 }
-siteManifest({
-  source: './src/site.webmanifest',
-  // dist: './static/site.webmanifest',
-  dist: stage ? './docs/site.webmanifest' : './dist/site.webmanifest',
-})
+// siteManifest({
+//   source: './src/site.webmanifest',
+//   // dist: './static/site.webmanifest',
+//   dist: stage ? './docs/site.webmanifest' : './dist/site.webmanifest',
+// })
 
 /** Change puplic path for gh-pages stage */
 const stageConfig = stage
@@ -465,6 +466,15 @@ const webpackConfig = {
     //   // (e.g. when you go to the next page).
     //   // rel: 'prefetch'
     // }),
+
+    new WriteWebmanifest({
+      source: './src/site.webmanifest',
+      path: '../',
+      replace: stage ? '/kotosani/' : '/',
+      // default output is site.webmanifest
+      // filename: 'site.webmanifest',
+      pretty: !PRODUCTION, // makes file human-readable (default false)
+    }),
 
     /**
      * PWA Offline plugin (ServiceWorker, AppCache) for webpack

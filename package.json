@@ -18,6 +18,7 @@
     "merge:master": "node ./scripts/merge.js && git push origin",
     "merge:develop": "git rebase master develop && git push origin",
     "deploy": "yarn build && node scripts/upload.js",
+    "build:stage": "rm -rf docs && yarn build --stage",
     "start:stage": "rm -rf docs && yarn build --stage && node scripts/server.js --stage",
     "deploy:stage": "rm -rf docs && yarn build --stage && push-dir --dir=docs --branch=gh-pages --cleanup && rm -rf docs",
     "test": "echo \"Error: no test specified\" && exit 1"
