@@ -11,7 +11,6 @@ const ResourceHintWebpackPlugin = require('./webpack/resource-hints-webpack-plug
 const ManifestPlugin = require('webpack-manifest-plugin')
 const OfflinePlugin = require('offline-plugin')
 // const WriteWebmanifest = require('./webpack/write-webmanifest')
-const WriteWebmanifest = require('./webpack/write-webmanifest-plugin')
 // const HtmlCriticalPlugin = require('html-critical-webpack-plugin')
 
 /** Environment */
@@ -34,7 +33,7 @@ const config = {
   assetsPath: resolve('dist/assets'),
   publicPath: PRODUCTION ? '/assets/' : '/',
   ...stageConfig, // stage path
-  PUBLIC: stage ? '/kotosani/' : '/', // stage public output dir
+  PUBLIC: stage ? '/kotosani' : '', // stage public output dir
   watchContent: [
     resolve('src/images'),
     resolve('src/pages'),
@@ -218,13 +217,13 @@ const webpackConfig = {
       {
         test: /webmanifest$/,
         use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-              // name: path.join('./', '[name].[ext]'),
-            },
-          },
+          // {
+          //   loader: 'file-loader',
+          //   options: {
+          //     name: '[name].[ext]',
+          //     // name: path.join('./', '[name].[ext]'),
+          //   },
+          // },
           {
             loader: resolve('webpack/manifest-loader'),
             options: {

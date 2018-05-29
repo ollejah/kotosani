@@ -8,8 +8,8 @@
   "scripts": {
     "dev": "nodemon --watch webpack.config.js --exec 'webpack-dev-server --env development --inline --hot'",
     "build": "webpack --env production --progress --hide-modules",
-    "deploy": "yarn build && node scripts/upload.js",
     "start": "yarn build && node scripts/server.js",
+    "deploy": "yarn build && node scripts/upload.js",
     "build:stage": "rimraf ./dist/* && yarn build --stage",
     "start:stage": "yarn build:stage && node scripts/server.js --stage",
     "deploy:stage": "yarn build:stage && push-dir --dir=dist --branch=gh-pages --cleanup && rimraf ./dist/*",

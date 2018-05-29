@@ -21,13 +21,15 @@ const getOptions = require('loader-utils').getOptions
 // }
 
 module.exports = function(source) {
+  this.cacheable()
+
   const options = getOptions(this)
   const public = options.public || ''
 
-  this.cacheable()
-  var callback = this.async()
-  source = source.replace(/{PUBLIC}/g, public)
+  console.log('THIS', this)
 
+  const callback = this.async()
+  source = source.replace(/{PUBLIC}/g, public)
   // fs.readFile(headerPath, 'utf-8', function(err, header) {
   //   if (err) return callback(err)
   callback(null, source)
