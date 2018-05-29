@@ -217,13 +217,14 @@ const webpackConfig = {
       {
         test: /webmanifest$/,
         use: [
-          // {
-          //   loader: 'file-loader',
-          //   options: {
-          //     name: '[name].[ext]',
-          //     // name: path.join('./', '[name].[ext]'),
-          //   },
-          // },
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: '../',
+              publicPath: config.PUBLIC
+            },
+          },
           {
             loader: resolve('webpack/manifest-loader'),
             options: {
@@ -343,17 +344,8 @@ const webpackConfig = {
         test: /\.s?[ac]ss|css$/,
         use: [
           PRODUCTION ? MiniCssExtractPlugin.loader : 'style-loader',
-          // 'css-loader',
-          // 'postcss-loader',
-          // 'sass-loader',
           ...styleLoaders,
         ],
-        // use: PRODUCTION
-        //   ? ['style-loader', MiniCssExtractPlugin.loader, ...styleLoaders]
-        //   : [
-        //       { loader: 'style-loader', options: { sourceMap: true } },
-        //       ...styleLoaders,
-        //     ],
       },
     ],
   },

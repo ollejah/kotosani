@@ -26,7 +26,7 @@ module.exports = function(source) {
   const options = getOptions(this)
   const public = options.public || ''
 
-  console.log('THIS', this)
+  // console.log('THIS', this)
 
   const callback = this.async()
   source = source.replace(/{PUBLIC}/g, public)
