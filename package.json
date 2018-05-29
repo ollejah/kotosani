@@ -6,9 +6,13 @@
   "author": "ollejah <ollejah@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "yarn build && node scripts/server.js",
     "dev": "nodemon --watch webpack.config.js --exec 'webpack-dev-server --env development --inline --hot'",
     "build": "webpack --env production --progress --hide-modules",
+    "deploy": "yarn build && node scripts/upload.js",
+    "start": "yarn build && node scripts/server.js",
+    "build:stage": "rimraf ./dist/* && yarn build --stage",
+    "start:stage": "yarn build:stage && node scripts/server.js --stage",
+    "deploy:stage": "yarn build:stage && push-dir --dir=dist --branch=gh-pages --cleanup && rimraf ./dist/*",
     "patch": "npm version patch",
     "minor": "npm version minor",
     "major": "npm version major",
@@ -17,10 +21,6 @@
     "postversion": "git push origin && git push origin --tags && git rebase master develop",
     "merge:master": "node ./scripts/merge.js && git push origin",
     "merge:develop": "git rebase master develop && git push origin",
-    "deploy": "yarn build && node scripts/upload.js",
-    "build:stage": "rm -rf docs && yarn build --stage",
-    "start:stage": "rm -rf docs && yarn build --stage && node scripts/server.js --stage",
-    "deploy:stage": "rm -rf docs && yarn build --stage && push-dir --dir=docs --branch=gh-pages --cleanup && rm -rf docs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

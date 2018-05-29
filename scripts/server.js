@@ -12,7 +12,7 @@ const stage = !!argv.stage
  */
 const PORT = 5008
 const PUBLIC = stage ? '/kotosani/' : '/'
-const DIR = stage ? resolve('../docs/') : resolve('../dist/')
+const DIST = resolve('../dist/')
 const app = express()
 app.use(compression())
 
@@ -56,6 +56,5 @@ spdy.createServer(options, app).listen(PORT, () => {
 })
 
 /**  Serve Static */
-app.get(PUBLIC, (req, res) => res.sendFile(`${DIR}/index.html`))
-// app.get('*', express.static(`${DIR}/`, options))
-app.use(PUBLIC, express.static(`${DIR}/`, options))
+app.get(PUBLIC, (req, res) => res.sendFile(`${DIST}/index.html`))
+app.use(PUBLIC, express.static(`${DIST}/`, options))

@@ -10,53 +10,22 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const ResourceHintWebpackPlugin = require('./webpack/resource-hints-webpack-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
 const OfflinePlugin = require('offline-plugin')
-const WriteWebmanifest = require('./webpack/write-webmanifest')
+// const WriteWebmanifest = require('./webpack/write-webmanifest')
+const WriteWebmanifest = require('./webpack/write-webmanifest-plugin')
 // const HtmlCriticalPlugin = require('html-critical-webpack-plugin')
 
 /** Environment */
 const argv = require('yargs').argv
 const PRODUCTION = argv.env === 'production'
 const stage = !!argv.stage
-const PUBLIC = stage ? '/kotosani/' : '/'
 
 /** Path */
 const pkg = require('./package.json')
 const path = require('path')
 const resolve = dir => path.join(__dirname, dir)
 
-/** site.webmanifest pwa */
-const siteManifest = ({ source, dist }) => {
-  const pkg = JSON.parse(fs.readFileSync('./package.json'))
-  source = JSON.stringify(JSON.parse(fs.readFileSync(source)))
-  source = source.replace(/{PUBLIC}/g, PUBLIC)
-
-  const merged = Object.assign({}, JSON.parse(source), {
-    name: pkg.name,
-    description: pkg.description,
-    version: pkg.version,
-    author: pkg.author,
-    homepage_url: pkg.homepage,
-  })
-
-  const indent = PRODUCTION ? null : 2
-  const result = JSON.stringify(merged, null, indent) + '\n'
-  fs.writeFileSync(dist, result)
-  return result
-}
-// siteManifest({
-//   source: './src/site.webmanifest',
-//   // dist: './static/site.webmanifest',
-//   dist: stage ? './docs/site.webmanifest' : './dist/site.webmanifest',
-// })
-
 /** Change puplic path for gh-pages stage */
-const stageConfig = stage
-  ? {
-      distPath: resolve('docs'),
-      assetsPath: resolve('docs/assets/'),
-      publicPath: '/kotosani/assets/',
-    }
-  : {}
+const stageConfig = stage ? { publicPath: '/kotosani/assets/' } : {}
 
 /** Project config */
 const config = {
@@ -65,6 +34,7 @@ const config = {
   assetsPath: resolve('dist/assets'),
   publicPath: PRODUCTION ? '/assets/' : '/',
   ...stageConfig, // stage path
+  PUBLIC: stage ? '/kotosani/' : '/', // stage public output dir
   watchContent: [
     resolve('src/images'),
     resolve('src/pages'),
@@ -245,22 +215,24 @@ const webpackConfig = {
   module: {
     rules: [
       /** site.manifest pwa */
-      // {
-      //   test: /site\.webmanifest$/,
-      //   use: [
-      //     {
-      //       loader: 'file-loader',
-      //       options: {
-      //         // name: '[name].[ext]',
-      //         name: path.join('../', '[name].[ext]'),
-      //       },
-      //     },
-      //     // 'json-loader',
-      //     {
-      //       loader: resolve('webpack/manifest-loader'),
-      //     },
-      //   ],
-      // },
+      {
+        test: /webmanifest$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              // name: path.join('./', '[name].[ext]'),
+            },
+          },
+          {
+            loader: resolve('webpack/manifest-loader'),
+            options: {
+              public: config.PUBLIC,
+            },
+          },
+        ],
+      },
 
       /** html */
       // https://github.com/webpack-contrib/html-loader
@@ -447,8 +419,8 @@ const webpackConfig = {
     new webpack.DefinePlugin({
       VERSION: JSON.stringify(`v${pkg.version}`),
       PRODUCTION: JSON.stringify(PRODUCTION),
-      STAGE: JSON.stringify(stage),
-      PUBLIC: JSON.stringify(stage ? '/kotosani' : ''),
+      // STAGE: JSON.stringify(stage),
+      PUBLIC: JSON.stringify(config.PUBLIC),
     }),
 
     // HMR shows correct file names in console on update
@@ -467,14 +439,12 @@ const webpackConfig = {
     //   // rel: 'prefetch'
     // }),
 
-    new WriteWebmanifest({
-      source: './src/site.webmanifest',
-      path: '../',
-      replace: stage ? '/kotosani/' : '/',
-      // default output is site.webmanifest
-      // filename: 'site.webmanifest',
-      pretty: !PRODUCTION, // makes file human-readable (default false)
-    }),
+    // new WriteWebmanifest({
+    //   source: './src/site.webmanifest',
+    //   path: '../',
+    //   replace: stage ? '/kotosani/' : '/',
+    //   pretty: !PRODUCTION, // makes file human-readable (default false)
+    // }),
 
     /**
      * PWA Offline plugin (ServiceWorker, AppCache) for webpack
