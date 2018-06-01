@@ -7,10 +7,13 @@ const spdy = require('spdy')
 const argv = require('yargs').argv
 const stage = !!argv.stage
 
+const test = !!argv.test
+const cypress = require('cypress')
+
 /**
  * App config
  */
-const PORT = 5008
+const PORT = 5050
 const PUBLIC = stage ? '/kotosani/' : '/'
 const DIST = resolve('../dist/')
 const app = express()
@@ -53,6 +56,8 @@ spdy.createServer(options, app).listen(PORT, () => {
     at 🥁  ${Date().toLocaleString()}
     on 🔑  https://localhost:${PORT}${PUBLIC}
   `)
+  // kick off a cypress run
+  return test && cypress.open()
 })
 
 /**  Serve Static */

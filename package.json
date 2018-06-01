@@ -7,12 +7,11 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon --watch webpack.config.js --exec 'webpack-dev-server --env development --inline --hot'",
+    "test": "cypress open",
     "build": "webpack --env production --progress --hide-modules",
-    "start": "yarn build && node scripts/server.js",
+    "build:start": "yarn build && node scripts/server.js",
+    "build:test": "yarn build:start --test",
     "deploy": "yarn build && node scripts/upload.js",
-    "build:stage": "rimraf ./dist/* && yarn build --stage",
-    "start:stage": "yarn build:stage && node scripts/server.js --stage",
-    "deploy:stage": "yarn build:stage && push-dir --dir=dist --branch=gh-pages --cleanup",
     "patch": "npm version patch",
     "minor": "npm version minor",
     "major": "npm version major",
@@ -21,7 +20,10 @@
     "postversion": "git push origin && git push origin --tags && git rebase master develop",
     "merge:master": "node ./scripts/merge.js && git push origin",
     "merge:develop": "git rebase master develop && git push origin",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "stage:build": "rimraf ./dist/* && yarn build --stage",
+    "stage:start": "yarn stage:build && node scripts/server.js --stage",
+    "stage:test": "yarn stage:start --test",
+    "stage:deploy": "yarn stage:build && push-dir --dir=dist --branch=gh-pages --cleanup"
   },
   "dependencies": {
     "blazy": "^1.8.2",
@@ -39,6 +41,7 @@
     "copy-webpack-plugin": "^4.5.1",
     "css-loader": "^0.28.11",
     "css-mqpacker": "^6.0.2",
+    "cypress": "3.0.1",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
     "file-loader": "^1.1.11",

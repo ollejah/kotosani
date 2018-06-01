@@ -1,0 +1,52 @@
+[
+  {
+    "preset": "macbook-15",
+    "width": "1440",
+    "height": "900"
+  },
+  {
+    "preset": "macbook-13",
+    "width": "1280",
+    "height": "800"
+  },
+  {
+    "preset": "macbook-11",
+    "width": "1366",
+    "height": "768"
+  },
+  {
+    "preset": "ipad-2",
+    "width": "1024",
+    "height": "768"
+  },
+  {
+    "preset": "ipad-mini",
+    "width": "1024",
+    "height": "768"
+  },
+  {
+    "preset": "iphone-6+",
+    "width": "414",
+    "height": "736"
+  },
+  {
+    "preset": "iphone-6",
+    "width": "375",
+    "height": "667"
+  },
+  {
+    "preset": "iphone-5",
+    "width": "320",
+    "height": "568"
+  },
+  {
+    "preset": "iphone-4",
+    "width": "320",
+    "height": "480"
+  },
+  {
+    "preset": "iphone-3",
+    "width": "320",
+    "height": "480"
+  }
+]
