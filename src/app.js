@@ -34,20 +34,33 @@ const $headerNav = qs('.js-header-nav')
 /**
  * Header nav trigger
  * открывает/закрывает меню
+ *
+ * Monitor Events
+ * https://developers.google.com/web/tools/chrome-devtools/console/events
+ * monitorEvents(document.body, "click")
+ * unmonitorEvents(document.body)
+ *
+ * View event listeners registered on objects
+ * getEventListeners(document)
  */
 const headerNavState = e => {
-  e.preventDefault()
+  // e.preventDefault()
   if (window.matchMedia('(max-width: 767px)').matches) {
-    console.log('matches')
     // https://developer.mozilla.org/ru/docs/Web/API/Element/classList
     $html.classList.toggle('is-disabled')
     $html.classList.toggle('is-menu-open')
     $headerNavTrigger.classList.toggle('is-active')
     $headerNav.classList.toggle('is-open')
-    $headerNav.scrollTop = 0
+    // $headerNav.scrollTop = 0
   }
 }
-$headerNavTrigger.on('click', headerNavState)
+$headerNavTrigger.on('click', e => {
+  e.preventDefault()
+  headerNavState(e)
+})
+Array.from(qsa('.js-header-nav a')).forEach(el =>
+  el.on('click', headerNavState)
+)
 
 /**
  * Lazy load images
@@ -62,18 +75,18 @@ const sections = Array.from(qsa('.l-section > *')).slice(1)
 const showSections = () => {
   const io = new IntersectionObserver(
     changes =>
-    changes.forEach(change => {
-      const target = change.target
-      // console.log(target, change.isIntersecting, change.intersectionRatio)
-      if (change.isIntersecting) {
-        target.classList.add('in-view')
-        io.unobserve(target)
-      }
-    }), {
+      changes.forEach(change => {
+        const target = change.target
+        // console.log(target, change.isIntersecting, change.intersectionRatio)
+        if (change.isIntersecting) {
+          target.classList.add('in-view')
+          io.unobserve(target)
+        }
+      }),
+    {
       rootMargin: '50px 0px',
-      threshold: 0.01
+      threshold: 0.01,
     }
-
   )
   // const sections = Array.from(qsa('.l-section > *'))
   sections.forEach(item => io.observe(item))
@@ -113,11 +126,11 @@ import ZoomImage from '@/scripts/ZoomImage'
 const imagesLoaded = qsa('[data-src]')
 imagesLoaded.forEach(
   img =>
-  new ZoomImage({
-    trigger: img,
-    endAnimate: 'visibility',
-    // closeAfter: 500,
-  })
+    new ZoomImage({
+      trigger: img,
+      endAnimate: 'visibility',
+      // closeAfter: 500,
+    })
 )
 
 /**
