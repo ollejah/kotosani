@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "nodemon --watch webpack.config.js --exec 'webpack-dev-server --env development --inline --hot'",
     "test": "cypress open",
-    "build": "webpack --env production --progress --hide-modules",
+    "build": "rimraf ./dist/* && webpack --env production --progress --hide-modules",
     "build:start": "yarn build && node scripts/server.js",
     "build:test": "yarn build:start --test",
     "deploy": "yarn build && node scripts/upload.js",
@@ -37,7 +37,6 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
-    "clean-webpack-plugin": "^0.1.19",
     "copy-webpack-plugin": "^4.5.1",
     "critters-webpack-plugin": "^1.0.0",
     "css-loader": "^0.28.11",

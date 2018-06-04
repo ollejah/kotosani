@@ -4,9 +4,9 @@ const fs = require('fs')
 const express = require('express')
 const compression = require('compression')
 const spdy = require('spdy')
+
 const argv = require('yargs').argv
 const stage = !!argv.stage
-
 const test = !!argv.test
 const cypress = require('cypress')
 

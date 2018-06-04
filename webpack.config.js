@@ -5,7 +5,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const ResourceHintWebpackPlugin = require('./webpack/resource-hints-webpack-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
@@ -14,36 +13,33 @@ const OfflinePlugin = require('offline-plugin')
 const HtmlCriticalPlugin = require('html-critical-webpack-plugin')
 // const WriteWebmanifest = require('./webpack/write-webmanifest')
 
+/** Path */
+const path = require('path')
+const resolve = dir => path.join(__dirname, dir)
+const pkg = require('./package.json')
+const version = pkg.version
+
 /** Environment */
 const argv = require('yargs').argv
 const PRODUCTION = argv.env === 'production'
 const stage = !!argv.stage
-
-/** Path */
-const pkg = require('./package.json')
-const path = require('path')
-const resolve = dir => path.join(__dirname, dir)
-
-/** Change puplic path for gh-pages stage */
-const stageConfig = stage ? { publicPath: '/kotosani/assets/' } : {}
 
 /** Project config */
 const config = {
   sourcePath: resolve('src'),
   distPath: resolve('dist'),
   assetsPath: resolve('dist/assets'),
-  publicPath: PRODUCTION ? '/assets/' : '/',
-  ...stageConfig, // stage path
-  PUBLIC: stage ? '/kotosani' : '', // stage public output dir
+  // publicPath: PRODUCTION ? '/assets/' : '/',
+  publicPath: stage ? 'assets/' : '/assets/',
+  // Change puplic path for gh-pages stage as --stage cli arg
+  PUBLIC: stage ? '/kotosani/' : '/', // stage public output dir
   watchContent: [
     resolve('src/images'),
     resolve('src/pages'),
     resolve('src/pages/inc'),
     resolve('static'), // Content not from webpack is served from
   ],
-  banner: `<!-- @release: v${
-    pkg.version
-  }; @latest: ${new Date().toLocaleString()} -->`,
+  banner: `@release: [name] v${version} [chunkhash]; @latest: ${new Date()}`,
 }
 
 /**
@@ -54,7 +50,7 @@ const pages = {
 }
 
 function getChunks(type) {
-  var chunks = {
+  const chunks = {
     index: ['manifest', 'vendor', 'app'],
     default: ['manifest', 'vendor', 'app'],
   }
@@ -74,7 +70,7 @@ const entryHtmlPlugins = Object.keys(pages).map(page => {
     filename: `${config.distPath}/${page}.html`,
     // necessary to consistently work with multiple chunks
     chunksSortMode: 'dependency',
-    // banner: config.banner,
+    banner: `<!-- @release: v${version}; @latest: ${new Date().toLocaleString()} -->`,
     // https://github.com/kangax/html-minifier#options-quick-reference
     minify: {
       removeComments: PRODUCTION,
@@ -223,15 +219,14 @@ const webpackConfig = {
             loader: 'file-loader',
             options: {
               name: '[name].[ext]',
-              outputPath: '../',
+              // outputPath: '../',
+              outputPath: PRODUCTION ? '../' : './',
               publicPath: config.PUBLIC,
             },
           },
           {
             loader: resolve('webpack/manifest-loader'),
-            options: {
-              public: config.PUBLIC,
-            },
+            options: { public: config.PUBLIC },
           },
         ],
       },
@@ -410,9 +405,8 @@ const webpackConfig = {
    */
   plugins: [
     new webpack.DefinePlugin({
-      VERSION: JSON.stringify(`v${pkg.version}`),
+      // VERSION: JSON.stringify(`v${pkg.version}`),
       PRODUCTION: JSON.stringify(PRODUCTION),
-      // STAGE: JSON.stringify(stage),
       PUBLIC: JSON.stringify(config.PUBLIC),
     }),
 
@@ -422,22 +416,6 @@ const webpackConfig = {
     // HtmlWebpackPlugin pages
     ...entryHtmlPlugins,
     new ResourceHintWebpackPlugin(),
-
-    // https://github.com/GoogleChromeLabs/preload-webpack-plugin/releases/tag/v3.0.0-alpha.1
-    // new PreloadWebpackPlugin({
-    //   rel: 'preload',
-    //   include: 'allChunks',
-    //   // 'prefetch'will be used in the next navigation/page load
-    //   // (e.g. when you go to the next page).
-    //   // rel: 'prefetch'
-    // }),
-
-    // new WriteWebmanifest({
-    //   source: './src/site.webmanifest',
-    //   path: '../',
-    //   replace: stage ? '/kotosani/' : '/',
-    //   pretty: !PRODUCTION, // makes file human-readable (default false)
-    // }),
 
     /** Critical css */
     // new Critters({
@@ -474,18 +452,12 @@ const webpackConfig = {
  */
 if (PRODUCTION) {
   webpackConfig.plugins.push(
-    new CleanWebpackPlugin(config.distPath, {}),
-
-    new webpack.DefinePlugin({
-      BANNER: JSON.stringify(config.banner),
-    }),
-
     new CopyWebpackPlugin([{ from: resolve('static'), to: config.distPath }], {
       ignore: ['.DS_Store'], // '.htaccess',
     }),
 
     new MiniCssExtractPlugin({
-      // filename: PRODUCTION ? 'css/[name].[contenthash:7].css' : '[name].css',
+      // [contenthash:7]
       filename: PRODUCTION ? 'css/[name].[hash:7].css' : '[name].css',
       allChunks: true,
     }),
@@ -495,25 +467,21 @@ if (PRODUCTION) {
       base: config.distPath,
       src: 'index.html',
       dest: 'index.html',
-      // dest: 'assets/css/critical.css',
       inline: true,
+      // dest: 'assets/css/critical.css',
       // minify: true,
       // extract: true,
       width: 1200,
       height: 800,
       penthouse: {
         blockJSRequests: false,
-      }
+      },
     }),
 
     // keep module.id stable when vendor modules does not change
     new webpack.HashedModuleIdsPlugin(),
 
-    new webpack.BannerPlugin({
-      banner: `@release: [name] v${
-        pkg.version
-      } [chunkhash]\n@latest: ${new Date().toString()}\n@author: ollejah skillbase`,
-    })
+    new webpack.BannerPlugin(config.banner)
 
     // new ManifestPlugin({
     //   fileName: 'assets.json',
