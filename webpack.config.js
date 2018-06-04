@@ -10,8 +10,9 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const ResourceHintWebpackPlugin = require('./webpack/resource-hints-webpack-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
 const OfflinePlugin = require('offline-plugin')
+// const Critters = require('critters-webpack-plugin')
+const HtmlCriticalPlugin = require('html-critical-webpack-plugin')
 // const WriteWebmanifest = require('./webpack/write-webmanifest')
-// const HtmlCriticalPlugin = require('html-critical-webpack-plugin')
 
 /** Environment */
 const argv = require('yargs').argv
@@ -65,6 +66,7 @@ const entryHtmlPlugins = Object.keys(pages).map(page => {
     chunks: getChunks(page),
     prefetch: false,
     preload: ['**/*.*'],
+    preload: ['**/*.js'], // correct for critical css
     template: './pages/index.tmpl',
     title: pages[page],
     partial: page,
@@ -222,7 +224,7 @@ const webpackConfig = {
             options: {
               name: '[name].[ext]',
               outputPath: '../',
-              publicPath: config.PUBLIC
+              publicPath: config.PUBLIC,
             },
           },
           {
@@ -437,6 +439,14 @@ const webpackConfig = {
     //   pretty: !PRODUCTION, // makes file human-readable (default false)
     // }),
 
+    /** Critical css */
+    // new Critters({
+    //   // Outputs: <link rel="preload" onload="this.rel='stylesheet'">
+    //   preload: 'swap',
+    //   // Don't inline critical font-face rules, but preload the font URLs:
+    //   preloadFonts: true,
+    // }),
+
     /**
      * PWA Offline plugin (ServiceWorker, AppCache) for webpack
      * https://github.com/NekR/offline-plugin/blob/master/docs/options.md
@@ -478,6 +488,22 @@ if (PRODUCTION) {
       // filename: PRODUCTION ? 'css/[name].[contenthash:7].css' : '[name].css',
       filename: PRODUCTION ? 'css/[name].[hash:7].css' : '[name].css',
       allChunks: true,
+    }),
+
+    /** HTML Critical Webpack Plugin */
+    new HtmlCriticalPlugin({
+      base: config.distPath,
+      src: 'index.html',
+      dest: 'index.html',
+      // dest: 'assets/css/critical.css',
+      inline: true,
+      // minify: true,
+      // extract: true,
+      width: 1200,
+      height: 800,
+      penthouse: {
+        blockJSRequests: false,
+      }
     }),
 
     // keep module.id stable when vendor modules does not change
