@@ -29,9 +29,8 @@ const config = {
   sourcePath: resolve('src'),
   distPath: resolve('dist'),
   assetsPath: resolve('dist/assets'),
-  // publicPath: PRODUCTION ? '/assets/' : '/',
-  publicPath: stage ? 'assets/' : '/assets/',
   // Change puplic path for gh-pages stage as --stage cli arg
+  publicPath: PRODUCTION ? (stage ? 'assets/' : '/assets/') : '/',
   PUBLIC: stage ? '/kotosani/' : '/', // stage public output dir
   watchContent: [
     resolve('src/images'),

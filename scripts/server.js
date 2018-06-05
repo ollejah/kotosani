@@ -10,25 +10,33 @@ const stage = !!argv.stage
 const test = !!argv.test
 const cypress = require('cypress')
 
+/** 
+ * Macos port mapping
+ * https://salferrarello.com/mac-pfctl-port-forwarding/
+ */
+/*
+1. Add to /etc/hosts
+127.0.0.1 pwa.dev
+::1   pwa.dev
+
+2. Forward Port 80 and 443 with Mac pfctl Port Forwarding, cli:
+echo "
+rdr pass inet proto tcp from any to any port 80 -> 127.0.0.1 port 8080
+rdr pass inet proto tcp from any to any port 443 -> 127.0.0.1 port 8443
+" | sudo pfctl -ef -
+
+3. Remove Port Forwarding
+sudo pfctl -F all -f /etc/pf.conf && pfctl -s nat
+*/
+
 /**
  * App config
  */
-const PORT = 5050
+const PORT = 8443
 const PUBLIC = stage ? '/kotosani/' : '/'
 const DIST = resolve('../dist/')
 const app = express()
 app.use(compression())
-
-// const options = {
-//   dotfiles: 'ignore',
-//   etag: false,
-//   index: false,
-//   maxAge: '10d',
-//   redirect: false,
-//   // setHeaders: (res, path, stat) => {
-//   //   res.set('x-timestamp', Date.now())
-//   // }
-// }
 
 /**
  * https with spdy
@@ -37,6 +45,14 @@ app.use(compression())
 const options = {
   key: fs.readFileSync(resolve('../cert/server.key')),
   cert: fs.readFileSync(resolve('../cert/server.crt')),
+  // dotfiles: 'ignore',
+  // etag: false,
+  // index: false,
+  // maxAge: '10d',
+  // redirect: false,
+  // setHeaders: (res, path, stat) => {
+  //   res.set('x-timestamp', Date.now())
+  // }
 
   spdy: {
     protocols: ['h2', 'spdy/3.1', 'http/1.1'],
