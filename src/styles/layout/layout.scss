@@ -100,3 +100,35 @@ body {
   //   align-items: center;
   // }
 }
+
+/**
+ * PWA spec
+ */
+.offline-ready {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  background: hsla(179, 70%, 57%, 0.5);
+  cursor: pointer;
+
+  /** Animations */
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-10vh);
+  transition: visibility 0s linear 0.3s, opacity 0.3s 0s, transform 0.3s 0s;
+  pointer-events: none;
+  // run
+  &.is-active {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+    transition: visibility 0s linear 0s, opacity 0.3s 0s, transform 0.3s 0s;
+    pointer-events: all;
+  }
+
+  p {
+    margin: .5rem;
+    text-align: center;
+  }
+}

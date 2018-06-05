@@ -34,11 +34,7 @@
     <base href="${PUBLIC}">
   </head>
 
-  <body>
-    <div hidden class="offline-ready" id="offline-ready">
-        <p>This website is now ready for offline usage because <code><a href="https://github.com/NekR/offline-plugin">offline-plugin</a></code> made it so. Try it!</p>
-    </div>
-    
+  <body>    
     <!-- begin header -->
     <%= require('./inc/header.html') %>
     <!-- end header -->
@@ -73,6 +69,10 @@
       </svg>
 
       <iframe id="default_form"></iframe>
+    </div>
+    
+    <div class="offline-ready js-offline-ready">
+      <p>Соединение с сервером потеряно...</p>
     </div>
 
     <script src="//unpkg.com/focus-visible@4.1.4/dist/focus-visible.min.js" async></script>

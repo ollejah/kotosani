@@ -149,25 +149,4 @@ imagesLoaded.forEach(
  * Offline plugin (ServiceWorker, AppCache) for webpack
  * https://github.com/NekR/offline-plugin/blob/master/docs/runtime.md
  */
-// require('offline-plugin/runtime').install()
-import * as runtime from 'offline-plugin/runtime'
-// runtime.install()
-
-runtime.install({
-  onUpdating: () => {
-    console.info('SW runtime Event:', 'onUpdating')
-  },
-  onUpdateReady: () => {
-    console.info('SW runtime Event:', 'onUpdateReady')
-    // Tells to new SW to take control immediately
-    runtime.applyUpdate()
-  },
-  onUpdated: () => {
-    console.info('SW runtime Event:', 'onUpdated')
-    // Reload the webpage to load into the new version
-    window.location.reload()
-  },
-  onUpdateFailed: () => {
-    console.warn('SW runtime Event:', 'onUpdateFailed')
-  },
-})
+import './scripts/service-worker'
