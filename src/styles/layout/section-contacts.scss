@@ -1,0 +1,15 @@
+/**
+ * Section Contacts
+ */
+
+.--contacts {
+  address {
+    font-style: normal;
+    @extend %big;
+    a {
+      display: block;
+      font-size: 1.375em;
+      color: $secondary;
+    }
+  }
+}

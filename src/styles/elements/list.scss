@@ -1,0 +1,49 @@
+/*
+ * LISTS
+ ====================================================
+ */
+
+.el-list {
+  margin: 1rem auto;
+  line-height: 1.4;
+  li {
+    margin-bottom: 0.6875rem!important;
+    // border: 1px solid;
+  }
+  // li + li {
+  //   margin: 0.5rem 0;
+  // }
+  li > ul,
+  li > ol {
+    margin-bottom: 2rem;
+  }
+}
+
+ul.el-list {
+  list-style: disc outside;
+}
+
+ol.el-list {
+  list-style: decimal outside;
+}
+
+ul.el-list {
+  ul {
+    list-style-type: circle;
+    margin-top: 0.5rem;
+    ul {
+      list-style-type: square;
+    }
+  }
+}
+
+/* .el-list.-dash {
+  list-style: none;
+  margin-left: 2rem;
+  li::before {
+    content: "—";
+    position: absolute;
+    margin-left: -1.25rem;
+    opacity: 0.5;
+  }
+} */

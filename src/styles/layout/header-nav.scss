@@ -1,0 +1,159 @@
+/**
+ * Frontpage <nav>
+ */
+
+.header-nav {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  overflow-y: auto;
+  padding: $pad/2;
+  @include sm {
+    padding: $pad;
+  }
+  @include md {
+    position: -webkit-sticky;
+    position: sticky;
+    overflow: hidden;
+    height: $headerHeight;
+    padding: 0;
+  }
+  background: rgba($primary, 0.9);
+
+  /** Elements */
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    flex: 1 0 auto;
+    flex-direction: column;
+    justify-content: center;
+    @include md {
+      flex-direction: initial;
+      justify-content: initial;
+    }
+  }
+
+  li {
+    padding-left: $pad/2;
+    @include sm {
+      margin-right: 2vw;
+      padding-left: 0;
+    }
+    @include lg {
+      margin-right: 3vw;
+    }
+    + li {
+      border-top: 1px solid rgba($accent, 0.25);
+      @include md {
+        border-top: none;
+      }
+    }
+  }
+
+  a {
+    position: relative;
+    display: inline-block;
+    font-size: 1.25em;
+    font-weight: bold;
+    line-height: $headerHeight;
+    color: $dark;
+    white-space: nowrap;
+    text-decoration: none;
+    // &::after {
+    //   content: none;
+    // }
+    /** hoverBorder */
+    @extend %hoverBorder;
+    @include md {
+      &::after {
+        top: 0;
+        height: 0.25rem;
+      }
+      &.is-active {
+        color: $accent;
+      }
+    }
+  }
+  &.is-open a::after {
+    content: none;
+  }
+
+  /** Animation */
+  visibility: hidden;
+  transform: translateX(-100%);
+  transition: transform 0.2s ease-in, visibility 0.2s ease-in;
+  will-change: transform;
+  @include md {
+    visibility: inherit;
+    transform: inherit;
+  }
+
+  /** State */
+  &.is-open {
+    visibility: visible;
+    transform: translateX(0);
+  }
+
+  /** Additional */
+  [hidden] {
+    display: initial;
+    @include md {
+      display: none;
+    }
+  }
+}
+
+/**
+ * Hamburger icon
+ */
+.hamburger {
+  // outline: 1px solid;
+  display: flex;
+  // justify-content: center;
+  align-items: center;
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  left: $pad/2;
+  @include sm {
+    left: $pad;
+  }
+  width: $headerHeight;
+  height: $headerHeight;
+
+  /** Make middle line shorter */
+  &:not(.is-active) .hamburger-inner {
+    width: 1.25rem;
+  }
+  &-inner,
+  &-inner::before,
+  &-inner::after {
+    background-color: $accent;
+  }
+  /* 
+  &:not(.is-active) .hamburger-inner,
+  &:not(.is-active) .hamburger-inner::before,
+  &:not(.is-active) .hamburger-inner::after {
+    background-color: $dark;
+  }
+  &-inner,
+  &-inner::before,
+  &-inner::after {
+    .is-active & {
+      background-color: $accent;
+    }
+  } 
+  */
+  &:focus {
+    outline: 0 none;
+  }
+  @include md {
+    display: none;
+  }
+}

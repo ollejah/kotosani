@@ -1,0 +1,15 @@
+/**
+ * COLOURS
+ */
+
+// Add percentage of white to a color
+// @use color: tint(#456, 50%);
+@function tint($color, $percent) {
+  @return mix(white, $color, $percent);
+}
+
+// Add percentage of black to a color
+// @use color: shade(#456, 50%);
+@function shade($color, $percent) {
+  @return mix(black, $color, $percent);
+}

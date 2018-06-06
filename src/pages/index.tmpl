@@ -1,0 +1,82 @@
+<!-- htmlmin:ignore -->${ htmlWebpackPlugin.options.banner }<!-- htmlmin:ignore -->
+<!doctype html>
+<html lang="ru" class="is-loading">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <meta name="description" content="Первое в Сочи антикафе с котиками">
+
+    <!-- Предварительный запрос DNS -->
+    <!-- <meta http-equiv="x-dns-prefetch-control" content="on"> -->
+    <!-- <link rel="dns-prefetch" href="//ajax.googleapis.com"> -->
+    <!-- <link rel="dns-prefetch" href="//polyfill.io"> -->
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <!-- webmanifest, Favicons -->
+    <link rel="manifest" href="${require(`../site.webmanifest?v=QEMpkz595P`)}">
+    <link rel="apple-touch-icon" sizes="180x180" href="${PUBLIC}apple-touch-icon.png?v=QEMpkz595P">
+    <link rel="icon" type="image/png" sizes="32x32" href="${PUBLIC}favicon-32x32.png?v=QEMpkz595P">
+    <link rel="icon" type="image/png" sizes="16x16" href="${PUBLIC}favicon-16x16.png?v=QEMpkz595P">
+    <link rel="mask-icon" href="${PUBLIC}safari-pinned-tab.svg?v=QEMpkz595P" color="#5bbad5">
+    <link rel="shortcut icon" href="${PUBLIC}favicon.ico?v=QEMpkz595P">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <base href="${PUBLIC}">
+  </head>
+
+  <body>    
+    <!-- begin header -->
+    <%= require('./inc/header.html') %>
+    <!-- end header -->
+
+    <main>
+    <%= require(`./${htmlWebpackPlugin.options.partial}.html`) %>
+    </main>
+
+    <!-- begin footer -->
+    <%= require('./inc/footer.html') %>
+    <!-- end footer -->
+
+    <!-- Modals -->
+    <div hidden class="overlay js-overlay">
+      <a href="#close" class="overlay-close js-close">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+          <path stroke="currentColor" stroke-width="4" stroke-miterlimit="10" d="M20 20l60 60m0-60L20 80" />
+        </svg>
+      </a>
+
+      <svg class="spinner js-spinner" width="32" height="32" viewBox="0 0 64 64">
+        <defs>
+          <linearGradient id="sGD" gradientUnits="userSpaceOnUse" x1="55" y1="46" x2="2" y2="46">
+            <stop offset="10%" style="stop-color: currentColor; stop-opacity: 0;"></stop>
+            <stop offset="100%" style="stop-color: currentColor;"></stop>
+          </linearGradient>
+        </defs>
+        <g fill="none" style="stroke-width: 4; stroke-linecap: round;">
+          <path stroke="url(#sGD)" d="M4,32 c0,15,12,28,28,28c8,0,16-4,21-9"></path>
+          <path d="M60,32 C60,16,47.464,4,32,4S4,16,4,32" style="stroke: currentColor;"></path>
+        </g>
+      </svg>
+
+      <iframe id="default_form"></iframe>
+    </div>
+    
+    <div class="offline-ready js-offline-ready">
+      <p>Соединение с сервером потеряно...</p>
+    </div>
+
+    <script src="//unpkg.com/focus-visible@4.1.4/dist/focus-visible.min.js" async></script>
+    <script src="//polyfill.io/v2/polyfill.min.js?features=IntersectionObserver" async></script>
+  </body>
+
+</html>

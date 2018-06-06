@@ -1,0 +1,4 @@
+.env
+/cert
+/cypress/videos/*
+/cypress/screenshots/*

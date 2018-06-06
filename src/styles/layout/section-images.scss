@@ -1,0 +1,67 @@
+/**
+ * Section separator figure images
+ */
+
+.l-section-images {
+  display: flex;
+  flex-wrap: wrap;
+  @include sm {
+    flex-wrap: nowrap;
+  }
+  justify-content: space-between;
+  background: $light;
+  overflow: hidden;
+  
+  // must be wrapper
+  >* {
+    border: .125em solid transparent;
+    overflow: hidden;
+    
+    // < 360
+    @include xs {
+      flex-basis: 100%;
+    }
+    // > 360
+    flex-basis: calc(100% / 2);
+    flex-grow: 1;
+  }
+    
+  &.-nowrap>* {
+    @include xs {
+      flex-basis: calc(100% / 2);
+    }
+    flex-basis: calc(100% / 3);
+  }
+  
+  /** Transitions */
+  img {
+    cursor: zoom-in;
+    opacity: 0.9;
+    // filter: blur(4px) saturate(30%);
+    filter: blur(4px);
+  }
+  img.b-loaded,
+  img.loaded {
+    // filter: blur(0) saturate(100%);
+    filter: blur(0);
+    transition: filter 0.5s ease-in .25s;
+    &:hover {
+      opacity: 1;
+    }
+  }
+  // &.--cl img {
+  //   opacity: initial;
+  //   filter: initial;
+  // }
+}
+
+// .lazy-sizes {
+//   outline: 1px solid blue;
+//   img {
+//     max-width: 960px;
+//   }
+//   .lazyloading {
+//     background: red url(https://afarkas.github.io/lazysizes/assets/imgs/loader.gif) no-repeat center;
+//     min-height: 60px;
+//   }
+// }

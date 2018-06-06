@@ -1,0 +1,37 @@
+/**
+ * Header
+ */
+
+$headerHeight: 3rem;
+
+.l-header {
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 100;
+  top: -1px;
+  background: $primary;
+  @extend %mqPad;
+
+  .tel {
+    position: relative;
+    flex: 1;
+    height: $headerHeight;
+    margin-left: 2rem;
+    font-size: 1.5em;
+    white-space: nowrap;
+    a {
+      text-decoration: none;
+      color: $secondary;
+    }
+  }
+
+  /** For horizontal scroll
+  // border: 1px solid red;
+  height: $headerHeight;
+  overflow: hidden; */
+
+  /** States */
+  html.is-disabled & {
+    pointer-events: all; // enabled clicks!
+  }
+}

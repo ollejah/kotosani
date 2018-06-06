@@ -1,0 +1,69 @@
+/**
+ * Extends Classes
+ */
+
+%mqPad {
+  padding: 0 $pad/2;
+  @include sm {
+    padding: 0 $pad;
+  }
+}
+
+%big {
+  // padding-top: 3rem;
+  display: inline-block;
+  font-size: 1.5em;
+  font-family: 'Georgia', serif;
+  @include lg {
+    font-size: 1.875em;
+  }
+}
+
+%dropdownArrow {
+  position: absolute;
+  z-index: 1;
+  content: '';
+  top: 35%;
+  right: 1rem;
+  width: 0.55rem;
+  height: 0.55rem;
+  transform: rotate(45deg);
+  border: solid currentColor;
+  border-width: 0 2px 2px 0;
+  pointer-events: none;
+}
+
+/** Animated Link border-bottom */
+%hoverBorder {
+  position: relative;
+  &::after {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 0.125rem;
+    background-color: $accent;
+    transition: width 0.25s;
+  }
+  &:hover::after {
+    width: 100%;
+  }
+}
+
+/** Gradiend background-color */
+@mixin gradientBkg($direction: left, $start: $accent, $end: $secondary) {
+  background-image: -linear-gradient($direction, $start, $end);
+}
+
+/** Gradiend text-color */
+@mixin gradientText($direction: left, $start: $accent, $end: $secondary) {
+  display: inline-block;
+  text-decoration: none;
+  background-image: -linear-gradient($direction, $start, $end);
+  background-image: -webkit-linear-gradient($direction, $start, $end);
+  background-clip: border-box;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

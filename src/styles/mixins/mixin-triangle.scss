@@ -1,0 +1,33 @@
+/*
+* @include triangle within a pseudo element and add positioning properties (ie. top, left)
+* $direction: up, down, left, right
+* @use : @include triangle(down, red, 1em, 2/3);
+*/
+
+@mixin triangle($direction, $color: #000, $size: 1em, $constrain: 2/3) {
+  content: '';
+  display: block;
+  position: absolute;
+  height: 0;
+  width: 0;
+  @if ($direction=='up') {
+    border-bottom: $size solid $color;
+    border-left: $constrain*$size solid transparent;
+    border-right: $constrain*$size solid transparent;
+  }
+  @else if ($direction=='down') {
+    border-top: $size solid $color;
+    border-left: $constrain*$size solid transparent;
+    border-right: $constrain*$size solid transparent;
+  }
+  @else if ($direction=='left') {
+    border-top: $constrain*$size solid transparent;
+    border-bottom: $constrain*$size solid transparent;
+    border-right: $size solid $color;
+  }
+  @else if ($direction=='right') {
+    border-top: $constrain*$size solid transparent;
+    border-bottom: $constrain*$size solid transparent;
+    border-left: $size solid $color;
+  }
+}
