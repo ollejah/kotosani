@@ -1,7 +1,4 @@
 .env
-/dist
-/docs
-/cert
 /cert
 /cypress/videos/*
 /cypress/screenshots/*
