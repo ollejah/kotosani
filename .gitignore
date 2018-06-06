@@ -1,4 +1,12 @@
+*.code-*
+*.log
+*.sublime-*
 .env
+.idea
+.vscode
 /cert
-/cypress/videos/*
 /cypress/screenshots/*
+/cypress/videos/*
+node_modules
+npm-*.log*
+yarn-*.log*
