@@ -5,11 +5,13 @@ Demo: [https://ollejah.github.io/kotosani/]()
 
 ### Setup
 
+**Install nodejs, npm or yarn, git, VSCode and follow instruction...**
+
 * Install Yarn [https://yarnpkg.com/en/docs/install#alternatives-tab]()
 `curl -o- -L https://yarnpkg.com/install.sh | bash`
 
 * Install dependencies 
-`yarn`
+`yarn install` or `npm install`
 
 Make SSL certificate for PWA stage locally `server.key, server.crt`.
 CLI `node scripts/server.js`, see `scripts/server.js`
