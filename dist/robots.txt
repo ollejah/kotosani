@@ -1,0 +1,4 @@
+# robotstxt.org/
+
+User-agent: *
+Disallow: / # блокирует доступ ко всему сайту
