@@ -11,7 +11,7 @@ Demo: [https://ollejah.github.io/kotosani/]()
 * Install dependencies 
 `yarn`
 
-Make SSL certificate for PWA stage host `server.key, server.crt`.
+Make SSL certificate for PWA stage locally `server.key, server.crt`.
 CLI `node scripts/server.js`, see `scripts/server.js`
 
 ### Development
@@ -33,4 +33,10 @@ PASSWORD = ''
 PUBLIC = '/home/www'
 ```
 
-* Deploy code to repo `yarn deploy`
+* Manual  deploy code to remote server `yarn deploy`
+
+### Stage `gh-pages` or custom domain
+
+* Build `yarn stage:build`
+* Run locally `yarn stage:start`
+* Deploy to branch `gh-pages` only build files -> `yarn stage:deploy`
