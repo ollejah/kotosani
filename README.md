@@ -18,13 +18,15 @@ CLI `node scripts/server.js`, see `scripts/server.js`
 
 ### Development
 
+git branch develop
+
 * Build and run your project locally `yarn start`
 * Run dev-server `yarn dev`
 
 ### Production
 
 * Bump version `yarn patch|minor|major`
-* Manual build `run build `yarn build`
+* Manual build `yarn build`
 
 Make copy from `env.example` to `.env`, add config for access to remote server (for upload, etc.):
 
