@@ -20,7 +20,7 @@
     "postversion": "git push origin && git push origin --tags && git rebase master develop",
     "merge:master": "node ./scripts/merge.js && git push origin",
     "merge:develop": "git rebase master develop && git push origin",
-    "stage:build": "rimraf ./dist/* && yarn build --stage",
+    "stage:build": "yarn build --stage",
     "stage:start": "yarn stage:build && node scripts/server.js --stage",
     "stage:test": "yarn stage:start --test",
     "stage:deploy": "yarn stage:build && push-dir --dir=dist --branch=gh-pages --cleanup"
