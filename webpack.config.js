@@ -185,6 +185,12 @@ const webpackConfig = {
   devServer: {
     // bonjour: true,
     // host: '0.0.0.0', // resolved as localhost:8080, 0.0.0.0:8080, [your-local-ip]:8080
+    // host: 'kotosani.dev',
+    // port: 8443,
+    // https: {
+    //   key: fs.readFileSync('./cert/ssl.key'),
+    //   cert: fs.readFileSync('./cert/ssl.crt'),
+    // },
     contentBase: config.watchContent,
     watchContentBase: true,
     historyApiFallback: true,
