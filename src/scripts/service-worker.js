@@ -32,26 +32,26 @@ runtime.install({
  * Offline state
  */
 
-window.addEventListener('offline', () => goOffline())
-window.addEventListener('online', () => goOffline())
+/** offlineReady banner */
+const offlineReady = document.querySelector('.js-offline-ready')
+// offlineReady.removeAttribute('hidden')
+
+function goOffline() {
+  if (!navigator.onLine) {
+    offlineReady.classList.add('is-active')
+    // setTimeout(() => offlineReady.classList.remove('is-active'), 10000)
+  } else {
+    offlineReady.classList.remove('is-active')
+  }
+  console.log(navigator.onLine)
+}
+
+window.addEventListener('offline', goOffline)
+window.addEventListener('online', goOffline)
 
 // Check if device online
 !navigator.onLine && setTimeout(() => goOffline(), 300)
 
-/** offlineReady banner */
-const offlineReady = document.querySelector('.js-offline-ready')
-
 offlineReady.addEventListener('click', e =>
   offlineReady.classList.remove('is-active')
 )
-
-function goOffline() {
-  !navigator.onLine ? 'is-offline' : 'is-online'
-  if (!navigator.onLine) {
-    // offlineReady.removeAttribute('hidden')
-    offlineReady.classList.add('is-active')
-  } else {
-    // offlineReady.setAttribute('hidden', '')
-    offlineReady.classList.remove('is-active')
-  }
-}

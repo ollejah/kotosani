@@ -113,7 +113,8 @@ document.addEventListener('readystatechange', () => {
     console.timeEnd('readyStateInteractive')
   }
   if (document.readyState === 'complete') {
-    // qs('html').classList.remove('is-loading')
+    qs('html').classList.remove('is-loading')
+    qs('.js-offline-ready').removeAttribute('hidden')
     showSections()
     console.timeEnd('readyStateComplete')
   }
@@ -136,7 +137,7 @@ imagesLoaded.forEach(
 /**
  * Open page form as Modal
  */
-// import OpenFrame from '@/scripts/modal/OpenFrame'
+// import OpenFrame from '@/scripts/OpenFrame'
 // qsa('.js-menu a').forEach(
 //   link =>
 //     new OpenFrame({
