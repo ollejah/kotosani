@@ -127,9 +127,38 @@ body {
     transition: visibility 0s linear 0s, opacity 0.3s 0s, transform 0.3s 0s;
     pointer-events: all;
   }
+  /* 
+  // animation: offlineStatus 0.5s ease-in backwards;
+  &.is-active {
+    animation: offlineStatus 0.5s ease-in backwards;
+  }
+  @keyframes offlineStatus {
+    0% {
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10vh);
+    }
+    100% {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+  } */
 
   p {
-    margin: .5rem;
+    margin: 0;
     text-align: center;
+    line-height: 3;
+  }
+
+  & {
+    /** dev */
+    // visibility: visible;
+    // opacity: 1;
+    // transform: translateY(0);
+    // pointer-events: all;
+    
+    height: 3rem;
+    background: yellow svg('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 100 100"><path stroke="currentColor" stroke-width="4" stroke-miterlimit="10" d="M20 20l60 60m0-60L20 80" /></svg>') no-repeat calc(100% - .75rem) 50%;
   }
 }

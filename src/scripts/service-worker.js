@@ -34,11 +34,12 @@ runtime.install({
 
 /** offlineReady banner */
 const offlineReady = document.querySelector('.js-offline-ready')
+// offlineReady.removeAttribute('hidden')
 
 function goOffline() {
   if (!navigator.onLine) {
     offlineReady.classList.add('is-active')
-    setTimeout(() => offlineReady.classList.remove('is-active'), 10000)
+    // setTimeout(() => offlineReady.classList.remove('is-active'), 10000)
   } else {
     offlineReady.classList.remove('is-active')
   }
