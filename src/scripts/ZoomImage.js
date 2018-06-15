@@ -2,33 +2,11 @@
 
 import '@/helpers/dom'
 import transitionEnd from '@/helpers/transition'
-import animationEnd from '@/helpers/animation'
+// import animationEnd from '@/helpers/animation'
 
-/**
- * Preventing body scroll for modals in iOS
- * https://benfrain.com/preventing-body-scroll-for-modals-in-ios/
- */
-const prevent = e => e.preventDefault()
-const viewportScrolling = {
-  stop: () => {
-    document.documentElement.classList.add('is-disabled')
-    document.documentElement.addEventListener('touchmove', prevent)
-  },
-  start: () => {
-    document.documentElement.classList.remove('is-disabled')
-    document.documentElement.removeEventListener('touchmove', prevent)
-  },
-}
-
-/** Getter, Setter document position Y */
-// const docOffset = {
-//   get: () => {
-//     return window.pageYOffset || document.documentElement.scrollTop
-//   },
-//   set: posy => {
-//     return (document.documentElement.scrollTop = document.body.scrollTop = posy)
-//   },
-// }
+/**  Preventing body scroll for modals in iOS */
+import viewportScrolling from '@/helpers/viewport-scrolling'
+// import docOffset from '@/helpers/document-offset'
 
 /**
  * Class ZoomImage
@@ -37,7 +15,6 @@ export default class ZoomImage {
   constructor({ trigger, endAnimate }) {
     this.root = qs('html')
     this.trigger = trigger
-    this.closer = qs('.js-close')
     this.show = false
     this.endAnimate = endAnimate
     this.init() // init zoom fn
@@ -88,7 +65,7 @@ export default class ZoomImage {
     this.modal.on('click', e => this.close(e), false)
 
     // Закрывает при клике на кнопку ✕
-    this.closer.on('click', e => this.close(e), false)
+    qs('.js-close').on('click', e => this.close(e), false)
   }
 
   close(e) {
