@@ -23,7 +23,7 @@
     "stage:build": "yarn build --stage",
     "stage:start": "yarn stage:build && node scripts/server.js --stage",
     "stage:test": "yarn stage:start --test",
-    "stage:deploy": "yarn stage:build && push-dir --dir=dist --branch=gh-pages --cleanup"
+    "stage:deploy": "yarn stage:build && push-dir --dir=dist --branch=gh-pages --cleanup --allow-unclean"
   },
   "dependencies": {
     "blazy": "^1.8.2",
